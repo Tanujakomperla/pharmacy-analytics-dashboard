@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Correlation | Pharmacy Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: #173b57;
+            color: white;
+            padding: 22px 35px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* NAVIGATION */
+
+        .navbar {
+            background: white;
+            padding: 0 35px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+        }
+
+        .nav-item {
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: #173b57;
+            border-bottom: 3px solid #173b57;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h2 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-title {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #173b57;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 6px;
+        }
+
+        /* CONTENT */
+
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            border: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+
+        .panel h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #173b57;
+        }
+
+        /* CHART */
+
+        .chart-container {
+            height: 400px;
+        }
+
+        /* TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f0f6fa;
+            color: #173b57;
+            text-align: left;
+            padding: 14px;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .correlation-value {
+            font-weight: bold;
+            color: #173b57;
+        }
+
+        /* INFO */
+
+        .info-box {
+            background: #f0f6fa;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .info-box p {
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .info-box strong {
+            color: #173b57;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        /* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chart-container {
+        height: 350px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .container {
+        padding: 18px;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 22px;
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <h1>
+            Pharmacy Student Performance & Analytics Dashboard
+        </h1>
+
+        <p>
+            Academic performance analysis, statistics and predictive analytics
+        </p>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="navbar">
+
+    <a href="/" class="nav-item">
+        Overview
+    </a>
+
+    <a href="/academic-analysis" class="nav-item">
+        Academic Analysis
+    </a>
+
+    <a href="/correlation" class="nav-item active">
+        Correlation
+    </a>
+
+    <a href="/statistics" class="nav-item">
+        Statistics
+    </a>
+
+    <a href="/prediction" class="nav-item">
+        Prediction
+    </a>
+
+    <a href="/insights" class="nav-item">
+        Insights
+    </a>
+
+</nav>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <h2>
+                Correlation Analysis
+            </h2>
+
+            <p>
+                Relationship between academic factors and final marks
+            </p>
+
+        </div>
+
+
+        <!-- SUMMARY CARDS -->
+
+        <section class="cards">
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Attendance Correlation
+                </div>
+
+                <div class="card-value">
+                    {{ attendance_corr }}
+                </div>
+
+                <div class="card-subtitle">
+                    Attendance vs Final Marks
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Study Hours Correlation
+                </div>
+
+                <div class="card-value">
+                    {{ study_hours_corr }}
+                </div>
+
+                <div class="card-subtitle">
+                    Study Hours vs Final Marks
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Internal Average Correlation
+                </div>
+
+                <div class="card-value">
+                    {{ internal_average_corr }}
+                </div>
+
+                <div class="card-subtitle">
+                    Internal Average vs Final Marks
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- CORRELATION CHART -->
+
+        <div class="panel">
+
+            <h3>
+                Factors vs Final Marks
+            </h3>
+
+            <div class="chart-container">
+
+                <canvas id="correlationChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <!-- CORRELATION TABLE -->
+
+        <div class="panel">
+
+            <h3>
+                Correlation Values
+            </h3>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Factor
+                            </th>
+
+                            <th>
+                                Correlation with Final Marks
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Attendance</td>
+                            <td class="correlation-value">
+                                {{ attendance_corr }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Study Hours</td>
+                            <td class="correlation-value">
+                                {{ study_hours_corr }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Pharmacology</td>
+                            <td class="correlation-value">
+                                {{ pharmacology_corr }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Pharmaceutics</td>
+                            <td class="correlation-value">
+                                {{ pharmaceutics_corr }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Pharmacognosy</td>
+                            <td class="correlation-value">
+                                {{ pharmacognosy_corr }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Internal Average</td>
+                            <td class="correlation-value">
+                                {{ internal_average_corr }}
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- EXPLANATION -->
+
+        <div class="panel">
+
+            <h3>
+                Understanding Correlation
+            </h3>
+
+            <div class="info-box">
+
+                <p>
+                    <strong>Correlation value:</strong>
+                    The correlation coefficient indicates the strength and direction
+                    of the relationship between two numerical variables.
+                </p>
+
+                <p>
+                    A value closer to <strong>+1</strong> indicates a stronger
+                    positive relationship, while a value closer to
+                    <strong>-1</strong> indicates a stronger negative relationship.
+                </p>
+
+                <p>
+                    Values closer to <strong>0</strong> indicate a weaker linear
+                    relationship.
+                </p>
+
+                <p>
+                    In this project, the analysis examines how attendance,
+                    study hours, subject marks and internal average are related
+                    to final marks.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        Pharmacy Student Performance & Analytics Dashboard
+
+        <br>
+
+        Python • Flask • Pandas • Machine Learning
+
+    </footer>
+
+
+    <!-- CHART JAVASCRIPT -->
+
+    <script>
+
+        const correlationLabels = {{ correlation_labels | tojson }};
+
+        const correlationValues = {{ correlation_values | tojson }};
+
+
+        new Chart(
+            document.getElementById("correlationChart"),
+            {
+
+                type: "bar",
+
+                data: {
+
+                    labels: correlationLabels,
+
+                    datasets: [
+
+                        {
+                            label: "Correlation with Final Marks",
+
+                            data: correlationValues,
+
+                            backgroundColor: "#2878a8",
+
+                            borderRadius: 8
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    scales: {
+
+                        y: {
+
+                            min: -1,
+
+                            max: 1,
+
+                            ticks: {
+
+                                stepSize: 0.2
+                            },
+
+                            title: {
+
+                                display: true,
+
+                                text: "Correlation Coefficient"
+                            }
+
+                        }
+
+                    },
+
+                    plugins: {
+
+                        legend: {
+
+                            display: true
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

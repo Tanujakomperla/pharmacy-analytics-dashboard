@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Academic Analysis | Pharmacy Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: #173b57;
+            color: white;
+            padding: 22px 35px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* NAVIGATION */
+
+        .navbar {
+            background: white;
+            padding: 0 35px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+        }
+
+        .nav-item {
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: #173b57;
+            border-bottom: 3px solid #173b57;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h2 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-title {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #173b57;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 6px;
+        }
+
+        /* CONTENT */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            border: 1px solid #e5e7eb;
+        }
+
+        .panel h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #173b57;
+        }
+
+        /* SUBJECT */
+
+        .subject {
+            margin-bottom: 22px;
+        }
+
+        .subject-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .progress {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #2878a8;
+            border-radius: 10px;
+        }
+
+        /* CHART */
+
+        .chart-container {
+            height: 330px;
+        }
+
+        /* INFO */
+
+        .info-box {
+            background: #f0f6fa;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .info-box p {
+            margin-bottom: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .info-box strong {
+            color: #173b57;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .container {
+        padding: 18px;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 22px;
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <h1>
+            Pharmacy Student Performance & Analytics Dashboard
+        </h1>
+
+        <p>
+            Academic performance analysis, statistics and predictive analytics
+        </p>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="navbar">
+
+    <a href="/" class="nav-item">
+        Overview
+    </a>
+
+    <a href="/academic-analysis" class="nav-item active">
+        Academic Analysis
+    </a>
+
+    <a href="/correlation" class="nav-item">
+        Correlation
+    </a>
+
+    <a href="/statistics" class="nav-item">
+        Statistics
+    </a>
+
+    <a href="/prediction" class="nav-item">
+        Prediction
+    </a>
+
+    <a href="/insights" class="nav-item">
+        Insights
+    </a>
+
+</nav>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <h2>
+                Academic Analysis
+            </h2>
+
+            <p>
+                Detailed analysis of pharmacy subject performance
+            </p>
+
+        </div>
+
+
+        <!-- SUMMARY CARDS -->
+
+        <section class="cards">
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Overall Subject Average
+                </div>
+
+                <div class="card-value">
+                    {{ overall_subject_average }}
+                </div>
+
+                <div class="card-subtitle">
+                    Average across all subjects
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Highest Final Marks
+                </div>
+
+                <div class="card-value">
+                    {{ highest_marks }}
+                </div>
+
+                <div class="card-subtitle">
+                    Highest student final score
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Lowest Final Marks
+                </div>
+
+                <div class="card-value">
+                    {{ lowest_marks }}
+                </div>
+
+                <div class="card-subtitle">
+                    Lowest student final score
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- CONTENT -->
+
+        <section class="content-grid">
+
+
+            <!-- SUBJECT PERFORMANCE -->
+
+            <div class="panel">
+
+                <h3>
+                    Subject-wise Performance
+                </h3>
+
+
+                <!-- PHARMACOLOGY -->
+
+                <div class="subject">
+
+                    <div class="subject-header">
+
+                        <span>
+                            Pharmacology
+                        </span>
+
+                        <strong>
+                            {{ pharmacology_average }}
+                        </strong>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            style="width: {{ pharmacology_average }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHARMACEUTICS -->
+
+                <div class="subject">
+
+                    <div class="subject-header">
+
+                        <span>
+                            Pharmaceutics
+                        </span>
+
+                        <strong>
+                            {{ pharmaceutics_average }}
+                        </strong>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            style="width: {{ pharmaceutics_average }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHARMACOGNOSY -->
+
+                <div class="subject">
+
+                    <div class="subject-header">
+
+                        <span>
+                            Pharmacognosy
+                        </span>
+
+                        <strong>
+                            {{ pharmacognosy_average }}
+                        </strong>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            style="width: {{ pharmacognosy_average }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- CHART -->
+
+            <div class="panel">
+
+                <h3>
+                    Subject Comparison
+                </h3>
+
+                <div class="chart-container">
+
+                    <canvas id="academicChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ANALYSIS SUMMARY -->
+
+        <section style="margin-top: 20px;">
+
+            <div class="panel">
+
+                <h3>
+                    Academic Analysis Summary
+                </h3>
+
+                <div class="info-box">
+
+                    <p>
+                        <strong>Pharmacology Average:</strong>
+                        {{ pharmacology_average }}
+                    </p>
+
+                    <p>
+                        <strong>Pharmaceutics Average:</strong>
+                        {{ pharmaceutics_average }}
+                    </p>
+
+                    <p>
+                        <strong>Pharmacognosy Average:</strong>
+                        {{ pharmacognosy_average }}
+                    </p>
+
+                    <p>
+                        <strong>Overall Subject Average:</strong>
+                        {{ overall_subject_average }}
+                    </p>
+
+                    <p>
+                        This page provides a subject-wise view of student academic
+                        performance using the pharmacy student Excel dataset.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        Pharmacy Student Performance & Analytics Dashboard
+
+        <br>
+
+        Python • Flask • Pandas • Machine Learning
+
+    </footer>
+
+
+    <!-- CHART -->
+
+    <script>
+
+        const subjectLabels = [
+            "Pharmacology",
+            "Pharmaceutics",
+            "Pharmacognosy"
+        ];
+
+        const subjectValues = [
+            {{ pharmacology_average }},
+            {{ pharmaceutics_average }},
+            {{ pharmacognosy_average }}
+        ];
+
+
+        new Chart(
+            document.getElementById("academicChart"),
+            {
+
+                type: "bar",
+
+                data: {
+
+                    labels: subjectLabels,
+
+                    datasets: [
+
+                        {
+                            label: "Average Marks",
+
+                            data: subjectValues,
+
+                            backgroundColor: "#2878a8",
+
+                            borderRadius: 8
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero: true,
+
+                            max: 100,
+
+                            title: {
+
+                                display: true,
+
+                                text: "Average Marks"
+                            }
+
+                        }
+
+                    },
+
+                    plugins: {
+
+                        legend: {
+
+                            display: true
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

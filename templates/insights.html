@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Insights | Pharmacy Dashboard</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: #173b57;
+            color: white;
+            padding: 22px 35px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* NAVIGATION */
+
+        .navbar {
+            background: white;
+            padding: 0 35px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+        }
+
+        .nav-item {
+            padding: 15px 18px;
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: #173b57;
+            border-bottom: 3px solid #173b57;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h2 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-title {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #173b57;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 6px;
+        }
+
+        /* CONTENT GRID */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            border: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+
+        .panel h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #173b57;
+        }
+
+        /* INSIGHT ITEMS */
+
+        .insight-item {
+            background: #f0f6fa;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2878a8;
+        }
+
+        .insight-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .insight-item h4 {
+            color: #173b57;
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+
+        .insight-item p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #4b5563;
+        }
+
+        /* FACTOR TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f0f6fa;
+            color: #173b57;
+            padding: 14px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .value {
+            font-weight: bold;
+            color: #173b57;
+        }
+
+        /* INFO BOX */
+
+        .info-box {
+            background: #f0f6fa;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .info-box p {
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-box strong {
+            color: #173b57;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .container {
+                padding: 18px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <h1>
+            Pharmacy Student Performance & Analytics Dashboard
+        </h1>
+
+        <p>
+            Academic performance analysis, statistics and predictive analytics
+        </p>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="navbar">
+    <a href="/" class="nav-item">Overview</a>
+    <a href="/academic-analysis" class="nav-item">Academic Analysis</a>
+    <a href="/correlation" class="nav-item">Correlation</a>
+    <a href="/statistics" class="nav-item">Statistics</a>
+    <a href="/prediction" class="nav-item">Prediction</a>
+    <a href="/insights" class="nav-item active">Insights</a>
+</nav>
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <h2>
+                Key Insights
+            </h2>
+
+            <p>
+                Data-driven observations from the pharmacy student dataset
+            </p>
+
+        </div>
+
+
+        <!-- SUMMARY CARDS -->
+
+        <section class="cards">
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Students Analyzed
+                </div>
+
+                <div class="card-value">
+                    {{ total_students }}
+                </div>
+
+                <div class="card-subtitle">
+                    Records after data cleaning
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Average Final Marks
+                </div>
+
+                <div class="card-value">
+                    {{ average_final_marks }}
+                </div>
+
+                <div class="card-subtitle">
+                    Overall final score
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Average Attendance
+                </div>
+
+                <div class="card-value">
+                    {{ average_attendance }}%
+                </div>
+
+                <div class="card-subtitle">
+                    Overall attendance
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Average Study Hours
+                </div>
+
+                <div class="card-value">
+                    {{ average_study_hours }}
+                </div>
+
+                <div class="card-subtitle">
+                    Hours per day
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- CONTENT -->
+
+        <section class="content-grid">
+
+
+            <!-- ACADEMIC INSIGHTS -->
+
+            <div class="panel">
+
+                <h3>
+                    Academic Insights
+                </h3>
+
+
+                <div class="insight-item">
+
+                    <h4>
+                        Highest Average Subject
+                    </h4>
+
+                    <p>
+                        {{ highest_subject }} has the highest average
+                        score among the three analyzed subjects, with an
+                        average of {{ highest_subject_average }} marks.
+                    </p>
+
+                </div>
+
+
+                <div class="insight-item">
+
+                    <h4>
+                        Final Marks Range
+                    </h4>
+
+                    <p>
+                        The final marks range from {{ lowest_marks }}
+                        to {{ highest_marks }} in the dataset.
+                    </p>
+
+                </div>
+
+
+                <div class="insight-item">
+
+                    <h4>
+                        Average Academic Performance
+                    </h4>
+
+                    <p>
+                        The average final mark across the analyzed students
+                        is {{ average_final_marks }}.
+                    </p>
+
+                </div>
+
+
+                <div class="insight-item">
+
+                    <h4>
+                        Study Pattern
+                    </h4>
+
+                    <p>
+                        Students in the dataset study an average of
+                        {{ average_study_hours }} hours per day.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- RELATIONSHIP INSIGHTS -->
+
+            <div class="panel">
+
+                <h3>
+                    Relationship Insights
+                </h3>
+
+
+                <div class="insight-item">
+
+                    <h4>
+                        Attendance and Final Marks
+                    </h4>
+
+                    <p>
+                        The correlation between attendance and final marks
+                        is {{ attendance_corr }}.
+                    </p>
+
+                </div>
+
+
+                <div class="insight-item">
+
+                    <h4>
+                        Study Hours and Final Marks
+                    </h4>
+
+                    <p>
+                        The correlation between study hours and final marks
+                        is {{ study_hours_corr }}.
+                    </p>
+
+                </div>
+
+
+                <div class="insight-item">
+
+                    <h4>
+                        Pharmacognosy and Final Marks
+                    </h4>
+
+                    <p>
+                        The correlation between Pharmacognosy marks and final
+                        marks is {{ pharmacognosy_corr }}.
+                    </p>
+
+                </div>
+
+
+                <div class="insight-item">
+
+                    <h4>
+                        Internal Average and Final Marks
+                    </h4>
+
+                    <p>
+                        The correlation between internal average and final
+                        marks is {{ internal_average_corr }}.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- CORRELATION SUMMARY -->
+
+        <div class="panel">
+
+            <h3>
+                Important Factors
+            </h3>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Factor
+                            </th>
+
+                            <th>
+                                Correlation with Final Marks
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>
+                                Attendance
+                            </td>
+
+                            <td class="value">
+                                {{ attendance_corr }}
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Study Hours
+                            </td>
+
+                            <td class="value">
+                                {{ study_hours_corr }}
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Pharmacognosy
+                            </td>
+
+                            <td class="value">
+                                {{ pharmacognosy_corr }}
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Internal Average
+                            </td>
+
+                            <td class="value">
+                                {{ internal_average_corr }}
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROJECT SUMMARY -->
+
+        <div class="panel">
+
+            <h3>
+                Project Summary
+            </h3>
+
+            <div class="info-box">
+
+                <p>
+                    <strong>Data Source:</strong>
+                    Pharmacy Student Performance Excel Dataset
+                </p>
+
+                <p>
+                    <strong>Data Processing:</strong>
+                    Duplicate and missing records were removed before analysis.
+                </p>
+
+                <p>
+                    <strong>Analysis:</strong>
+                    Descriptive statistics, subject-wise analysis and
+                    correlation analysis were performed.
+                </p>
+
+                <p>
+                    <strong>Prediction:</strong>
+                    A multiple linear regression model was developed to
+                    estimate final marks using selected academic factors.
+                </p>
+
+                <p>
+                    <strong>Purpose:</strong>
+                    The dashboard provides a single web-based interface
+                    for exploring student academic performance and
+                    statistical findings.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        Pharmacy Student Performance & Analytics Dashboard
+
+        <br>
+
+        Python • Flask • Pandas • Machine Learning
+
+    </footer>
+
+
+</body>
+
+</html>
