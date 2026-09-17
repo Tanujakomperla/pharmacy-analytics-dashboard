@@ -4,9 +4,12 @@
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Insights | Pharmacy Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
 
@@ -86,6 +89,64 @@
             font-size: 14px;
         }
 
+        /* FILTERS */
+
+        .filter-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+        }
+
+        .filter-title {
+            color: #173b57;
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 12px;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 11px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .filters input:focus,
+        .filters select:focus {
+            border-color: #2878a8;
+        }
+
+        .clear-button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #173b57;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .clear-button:hover {
+            background: #2878a8;
+        }
+
+        .filter-count {
+            margin-top: 12px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
         /* CARDS */
 
         .cards {
@@ -144,7 +205,7 @@
             color: #173b57;
         }
 
-        /* INSIGHT ITEMS */
+        /* INSIGHTS */
 
         .insight-item {
             background: #f0f6fa;
@@ -170,7 +231,7 @@
             color: #4b5563;
         }
 
-        /* FACTOR TABLE */
+        /* TABLE */
 
         .table-container {
             overflow-x: auto;
@@ -198,6 +259,12 @@
         .value {
             font-weight: bold;
             color: #173b57;
+        }
+
+        /* CHART */
+
+        .chart-container {
+            height: 350px;
         }
 
         /* INFO BOX */
@@ -243,11 +310,19 @@
                 grid-template-columns: 1fr;
             }
 
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
+
         }
 
         @media (max-width: 600px) {
 
             .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
                 grid-template-columns: 1fr;
             }
 
@@ -296,13 +371,33 @@
     <!-- NAVIGATION -->
 
     <nav class="navbar">
-    <a href="/" class="nav-item">Overview</a>
-    <a href="/academic-analysis" class="nav-item">Academic Analysis</a>
-    <a href="/correlation" class="nav-item">Correlation</a>
-    <a href="/statistics" class="nav-item">Statistics</a>
-    <a href="/prediction" class="nav-item">Prediction</a>
-    <a href="/insights" class="nav-item active">Insights</a>
-</nav>
+
+        <a href="/" class="nav-item">
+            Overview
+        </a>
+
+        <a href="/academic-analysis" class="nav-item">
+            Academic Analysis
+        </a>
+
+        <a href="/correlation" class="nav-item">
+            Correlation
+        </a>
+
+        <a href="/statistics" class="nav-item">
+            Statistics
+        </a>
+
+        <a href="/prediction" class="nav-item">
+            Prediction
+        </a>
+
+        <a href="/insights" class="nav-item active">
+            Insights
+        </a>
+
+    </nav>
+
 
     <!-- MAIN -->
 
@@ -318,8 +413,79 @@
             </h2>
 
             <p>
-                Data-driven observations from the pharmacy student dataset
+                Interactive data-driven observations from the pharmacy student dataset
             </p>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        <div class="filter-panel">
+
+            <div class="filter-title">
+                Filter Student Data
+            </div>
+
+            <div class="filters">
+
+                <input
+                    type="text"
+                    id="studentSearch"
+                    placeholder="Search Student ID...">
+
+                <select id="genderFilter">
+
+                    <option value="">
+                        All Genders
+                    </option>
+
+                    <option value="Male">
+                        Male
+                    </option>
+
+                    <option value="Female">
+                        Female
+                    </option>
+
+                </select>
+
+
+                <select id="statusFilter">
+
+                    <option value="">
+                        All Status
+                    </option>
+
+                    <option value="Pass">
+                        Pass
+                    </option>
+
+                    <option value="Fail">
+                        Fail
+                    </option>
+
+                </select>
+
+
+                <button
+                    class="clear-button"
+                    onclick="clearFilters()">
+
+                    Clear Filters
+
+                </button>
+
+            </div>
+
+
+            <div class="filter-count">
+
+                Showing
+                <strong id="filterCount">0</strong>
+                students
+
+            </div>
 
         </div>
 
@@ -335,12 +501,14 @@
                     Students Analyzed
                 </div>
 
-                <div class="card-value">
-                    {{ total_students }}
+                <div
+                    class="card-value"
+                    id="totalStudents">
+                    0
                 </div>
 
                 <div class="card-subtitle">
-                    Records after data cleaning
+                    Records after filtering
                 </div>
 
             </div>
@@ -352,8 +520,10 @@
                     Average Final Marks
                 </div>
 
-                <div class="card-value">
-                    {{ average_final_marks }}
+                <div
+                    class="card-value"
+                    id="averageFinalMarks">
+                    0
                 </div>
 
                 <div class="card-subtitle">
@@ -369,8 +539,10 @@
                     Average Attendance
                 </div>
 
-                <div class="card-value">
-                    {{ average_attendance }}%
+                <div
+                    class="card-value"
+                    id="averageAttendance">
+                    0%
                 </div>
 
                 <div class="card-subtitle">
@@ -386,8 +558,10 @@
                     Average Study Hours
                 </div>
 
-                <div class="card-value">
-                    {{ average_study_hours }}
+                <div
+                    class="card-value"
+                    id="averageStudyHours">
+                    0
                 </div>
 
                 <div class="card-subtitle">
@@ -400,7 +574,7 @@
         </section>
 
 
-        <!-- CONTENT -->
+        <!-- CONTENT GRID -->
 
         <section class="content-grid">
 
@@ -420,10 +594,8 @@
                         Highest Average Subject
                     </h4>
 
-                    <p>
-                        {{ highest_subject }} has the highest average
-                        score among the three analyzed subjects, with an
-                        average of {{ highest_subject_average }} marks.
+                    <p id="highestSubjectInsight">
+                        -
                     </p>
 
                 </div>
@@ -435,9 +607,8 @@
                         Final Marks Range
                     </h4>
 
-                    <p>
-                        The final marks range from {{ lowest_marks }}
-                        to {{ highest_marks }} in the dataset.
+                    <p id="marksRangeInsight">
+                        -
                     </p>
 
                 </div>
@@ -446,12 +617,11 @@
                 <div class="insight-item">
 
                     <h4>
-                        Average Academic Performance
+                        Academic Performance
                     </h4>
 
-                    <p>
-                        The average final mark across the analyzed students
-                        is {{ average_final_marks }}.
+                    <p id="performanceInsight">
+                        -
                     </p>
 
                 </div>
@@ -463,9 +633,8 @@
                         Study Pattern
                     </h4>
 
-                    <p>
-                        Students in the dataset study an average of
-                        {{ average_study_hours }} hours per day.
+                    <p id="studyInsight">
+                        -
                     </p>
 
                 </div>
@@ -489,9 +658,8 @@
                         Attendance and Final Marks
                     </h4>
 
-                    <p>
-                        The correlation between attendance and final marks
-                        is {{ attendance_corr }}.
+                    <p id="attendanceInsight">
+                        -
                     </p>
 
                 </div>
@@ -503,9 +671,8 @@
                         Study Hours and Final Marks
                     </h4>
 
-                    <p>
-                        The correlation between study hours and final marks
-                        is {{ study_hours_corr }}.
+                    <p id="studyCorrelationInsight">
+                        -
                     </p>
 
                 </div>
@@ -517,9 +684,8 @@
                         Pharmacognosy and Final Marks
                     </h4>
 
-                    <p>
-                        The correlation between Pharmacognosy marks and final
-                        marks is {{ pharmacognosy_corr }}.
+                    <p id="pharmacognosyInsight">
+                        -
                     </p>
 
                 </div>
@@ -531,9 +697,8 @@
                         Internal Average and Final Marks
                     </h4>
 
-                    <p>
-                        The correlation between internal average and final
-                        marks is {{ internal_average_corr }}.
+                    <p id="internalInsight">
+                        -
                     </p>
 
                 </div>
@@ -543,6 +708,23 @@
 
 
         </section>
+
+
+        <!-- SUBJECT PERFORMANCE -->
+
+        <div class="panel">
+
+            <h3>
+                Subject Performance
+            </h3>
+
+            <div class="chart-container">
+
+                <canvas id="subjectChart"></canvas>
+
+            </div>
+
+        </div>
 
 
         <!-- CORRELATION SUMMARY -->
@@ -573,6 +755,7 @@
 
                     </thead>
 
+
                     <tbody>
 
                         <tr>
@@ -581,8 +764,10 @@
                                 Attendance
                             </td>
 
-                            <td class="value">
-                                {{ attendance_corr }}
+                            <td
+                                class="value"
+                                id="attendanceCorrelation">
+                                -
                             </td>
 
                         </tr>
@@ -594,8 +779,10 @@
                                 Study Hours
                             </td>
 
-                            <td class="value">
-                                {{ study_hours_corr }}
+                            <td
+                                class="value"
+                                id="studyCorrelation">
+                                -
                             </td>
 
                         </tr>
@@ -607,8 +794,10 @@
                                 Pharmacognosy
                             </td>
 
-                            <td class="value">
-                                {{ pharmacognosy_corr }}
+                            <td
+                                class="value"
+                                id="pharmacognosyCorrelation">
+                                -
                             </td>
 
                         </tr>
@@ -620,11 +809,73 @@
                                 Internal Average
                             </td>
 
-                            <td class="value">
-                                {{ internal_average_corr }}
+                            <td
+                                class="value"
+                                id="internalCorrelation">
+                                -
                             </td>
 
                         </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- FILTERED STUDENT TABLE -->
+
+        <div class="panel">
+
+            <h3>
+                Filtered Student Records
+            </h3>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Student ID
+                            </th>
+
+                            <th>
+                                Gender
+                            </th>
+
+                            <th>
+                                Attendance
+                            </th>
+
+                            <th>
+                                Study Hours
+                            </th>
+
+                            <th>
+                                Internal Average
+                            </th>
+
+                            <th>
+                                Final Marks
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="studentTableBody">
 
                     </tbody>
 
@@ -693,6 +944,857 @@
         Python • Flask • Pandas • Machine Learning
 
     </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+
+        /* -----------------------------------------
+           STUDENT DATA FROM FLASK
+        ----------------------------------------- */
+
+        const students = {{ students | tojson }};
+
+
+        let filteredStudents = [...students];
+
+
+        /* -----------------------------------------
+           HELPER FUNCTIONS
+        ----------------------------------------- */
+
+        function average(values) {
+
+            if (values.length === 0) {
+                return 0;
+            }
+
+            return values.reduce(
+                (sum, value) => sum + Number(value),
+                0
+            ) / values.length;
+        }
+
+
+        function median(values) {
+
+            if (values.length === 0) {
+                return 0;
+            }
+
+            const sorted = [...values]
+                .map(Number)
+                .sort((a, b) => a - b);
+
+            const middle =
+                Math.floor(sorted.length / 2);
+
+            if (sorted.length % 2 === 0) {
+
+                return (
+                    sorted[middle - 1] +
+                    sorted[middle]
+                ) / 2;
+
+            }
+
+            return sorted[middle];
+
+        }
+
+
+        function standardDeviation(values) {
+
+            if (values.length < 2) {
+                return 0;
+            }
+
+            const nums = values.map(Number);
+
+            const mean = average(nums);
+
+            const variance =
+                nums.reduce(
+                    (sum, value) =>
+                        sum + Math.pow(value - mean, 2),
+                    0
+                ) / (nums.length - 1);
+
+            return Math.sqrt(variance);
+
+        }
+
+
+        function correlation(xValues, yValues) {
+
+            if (
+                xValues.length < 2 ||
+                yValues.length < 2
+            ) {
+                return 0;
+            }
+
+            const x = xValues.map(Number);
+            const y = yValues.map(Number);
+
+            const xMean = average(x);
+            const yMean = average(y);
+
+            let numerator = 0;
+            let xDenominator = 0;
+            let yDenominator = 0;
+
+            for (let i = 0; i < x.length; i++) {
+
+                const xDifference =
+                    x[i] - xMean;
+
+                const yDifference =
+                    y[i] - yMean;
+
+                numerator +=
+                    xDifference * yDifference;
+
+                xDenominator +=
+                    Math.pow(xDifference, 2);
+
+                yDenominator +=
+                    Math.pow(yDifference, 2);
+
+            }
+
+            if (
+                xDenominator === 0 ||
+                yDenominator === 0
+            ) {
+                return 0;
+            }
+
+            return (
+                numerator /
+                Math.sqrt(
+                    xDenominator *
+                    yDenominator
+                )
+            );
+
+        }
+
+
+        /* -----------------------------------------
+           FILTER STUDENTS
+        ----------------------------------------- */
+
+        function applyFilters() {
+
+            const search =
+                document
+                    .getElementById("studentSearch")
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+
+            const gender =
+                document
+                    .getElementById("genderFilter")
+                    .value
+                    .toLowerCase();
+
+
+            const status =
+                document
+                    .getElementById("statusFilter")
+                    .value
+                    .toLowerCase();
+
+
+            filteredStudents =
+                students.filter(function(student) {
+
+                    const studentId =
+                        String(
+                            student.Student_ID
+                        ).toLowerCase();
+
+
+                    const studentGender =
+                        String(
+                            student.Gender
+                        ).toLowerCase();
+
+
+                    const studentStatus =
+                        String(
+                            student.Status
+                        ).toLowerCase();
+
+
+                    const matchesSearch =
+                        studentId.includes(search);
+
+
+                    const matchesGender =
+                        !gender ||
+                        studentGender === gender;
+
+
+                    const matchesStatus =
+                        !status ||
+                        studentStatus === status;
+
+
+                    return (
+                        matchesSearch &&
+                        matchesGender &&
+                        matchesStatus
+                    );
+
+                });
+
+
+            updateDashboard();
+
+        }
+
+
+        /* -----------------------------------------
+           UPDATE DASHBOARD
+        ----------------------------------------- */
+
+        function updateDashboard() {
+
+            const count =
+                filteredStudents.length;
+
+
+            document.getElementById(
+                "filterCount"
+            ).textContent = count;
+
+
+            document.getElementById(
+                "totalStudents"
+            ).textContent = count;
+
+
+            if (count === 0) {
+
+                resetDashboard();
+
+                return;
+
+            }
+
+
+            /* -----------------------------------------
+               BASIC VALUES
+            ----------------------------------------- */
+
+            const attendanceValues =
+                filteredStudents.map(
+                    s => Number(s["Attendance_%"])
+                );
+
+
+            const studyValues =
+                filteredStudents.map(
+                    s => Number(s.Study_Hours_Per_Day)
+                );
+
+
+            const finalValues =
+                filteredStudents.map(
+                    s => Number(s.Final_Marks)
+                );
+
+
+            document.getElementById(
+                "averageAttendance"
+            ).textContent =
+                average(attendanceValues).toFixed(2) + "%";
+
+
+            document.getElementById(
+                "averageStudyHours"
+            ).textContent =
+                average(studyValues).toFixed(2);
+
+
+            document.getElementById(
+                "averageFinalMarks"
+            ).textContent =
+                average(finalValues).toFixed(2);
+
+
+            /* -----------------------------------------
+               SUBJECT AVERAGES
+            ----------------------------------------- */
+
+            const pharmacologyValues =
+                filteredStudents.map(
+                    s => Number(s.Pharmacology)
+                );
+
+
+            const pharmaceuticsValues =
+                filteredStudents.map(
+                    s => Number(s.Pharmaceutics)
+                );
+
+
+            const pharmacognosyValues =
+                filteredStudents.map(
+                    s => Number(s.Pharmacognosy)
+                );
+
+
+            const pharmacologyAverage =
+                average(pharmacologyValues);
+
+
+            const pharmaceuticsAverage =
+                average(pharmaceuticsValues);
+
+
+            const pharmacognosyAverage =
+                average(pharmacognosyValues);
+
+
+            const subjectData = {
+
+                "Pharmacology":
+                    pharmacologyAverage,
+
+                "Pharmaceutics":
+                    pharmaceuticsAverage,
+
+                "Pharmacognosy":
+                    pharmacognosyAverage
+
+            };
+
+
+            const highestSubject =
+                Object.keys(subjectData)
+                    .reduce(
+                        (a, b) =>
+                            subjectData[a] >
+                            subjectData[b]
+                                ? a
+                                : b
+                    );
+
+
+            const highestSubjectAverage =
+                subjectData[highestSubject];
+
+
+            /* -----------------------------------------
+               MARKS RANGE
+            ----------------------------------------- */
+
+            const highestMarks =
+                Math.max(...finalValues);
+
+
+            const lowestMarks =
+                Math.min(...finalValues);
+
+
+            /* -----------------------------------------
+               CORRELATIONS
+            ----------------------------------------- */
+
+            const attendanceCorrelation =
+                correlation(
+                    attendanceValues,
+                    finalValues
+                );
+
+
+            const studyCorrelation =
+                correlation(
+                    studyValues,
+                    finalValues
+                );
+
+
+            const pharmacognosyCorrelation =
+                correlation(
+                    pharmacognosyValues,
+                    finalValues
+                );
+
+
+            const internalValues =
+                filteredStudents.map(
+                    s => Number(s.Internal_Average)
+                );
+
+
+            const internalCorrelation =
+                correlation(
+                    internalValues,
+                    finalValues
+                );
+
+
+            /* -----------------------------------------
+               UPDATE INSIGHTS
+            ----------------------------------------- */
+
+            document.getElementById(
+                "highestSubjectInsight"
+            ).textContent =
+                highestSubject +
+                " has the highest average score among " +
+                "the three analyzed subjects, with an " +
+                "average of " +
+                highestSubjectAverage.toFixed(2) +
+                " marks.";
+
+
+            document.getElementById(
+                "marksRangeInsight"
+            ).textContent =
+                "Final marks range from " +
+                lowestMarks.toFixed(2) +
+                " to " +
+                highestMarks.toFixed(2) +
+                " in the current selection.";
+
+
+            document.getElementById(
+                "performanceInsight"
+            ).textContent =
+                "The average final mark across the " +
+                count +
+                " selected student(s) is " +
+                average(finalValues).toFixed(2) +
+                ".";
+
+
+            document.getElementById(
+                "studyInsight"
+            ).textContent =
+                "Students in the current selection " +
+                "study an average of " +
+                average(studyValues).toFixed(2) +
+                " hours per day.";
+
+
+            document.getElementById(
+                "attendanceInsight"
+            ).textContent =
+                "The Pearson correlation between " +
+                "attendance and final marks is " +
+                attendanceCorrelation.toFixed(3) +
+                ".";
+
+
+            document.getElementById(
+                "studyCorrelationInsight"
+            ).textContent =
+                "The Pearson correlation between study " +
+                "hours and final marks is " +
+                studyCorrelation.toFixed(3) +
+                ".";
+
+
+            document.getElementById(
+                "pharmacognosyInsight"
+            ).textContent =
+                "The Pearson correlation between " +
+                "Pharmacognosy marks and final marks is " +
+                pharmacognosyCorrelation.toFixed(3) +
+                ".";
+
+
+            document.getElementById(
+                "internalInsight"
+            ).textContent =
+                "The Pearson correlation between internal " +
+                "average and final marks is " +
+                internalCorrelation.toFixed(3) +
+                ".";
+
+
+            /* -----------------------------------------
+               UPDATE CORRELATION TABLE
+            ----------------------------------------- */
+
+            document.getElementById(
+                "attendanceCorrelation"
+            ).textContent =
+                attendanceCorrelation.toFixed(3);
+
+
+            document.getElementById(
+                "studyCorrelation"
+            ).textContent =
+                studyCorrelation.toFixed(3);
+
+
+            document.getElementById(
+                "pharmacognosyCorrelation"
+            ).textContent =
+                pharmacognosyCorrelation.toFixed(3);
+
+
+            document.getElementById(
+                "internalCorrelation"
+            ).textContent =
+                internalCorrelation.toFixed(3);
+
+
+            /* -----------------------------------------
+               UPDATE TABLE
+            ----------------------------------------- */
+
+            updateStudentTable();
+
+
+            /* -----------------------------------------
+               UPDATE CHART
+            ----------------------------------------- */
+
+            updateSubjectChart(
+                subjectData
+            );
+
+        }
+
+
+        /* -----------------------------------------
+           UPDATE STUDENT TABLE
+        ----------------------------------------- */
+
+        function updateStudentTable() {
+
+            const tableBody =
+                document.getElementById(
+                    "studentTableBody"
+                );
+
+
+            tableBody.innerHTML = "";
+
+
+            filteredStudents.forEach(
+                function(student) {
+
+                    const row =
+                        document.createElement("tr");
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            ${student.Student_ID}
+                        </td>
+
+                        <td>
+                            ${student.Gender}
+                        </td>
+
+                        <td>
+                            ${Number(
+                                student["Attendance_%"]
+                            ).toFixed(2)}%
+                        </td>
+
+                        <td>
+                            ${Number(
+                                student.Study_Hours_Per_Day
+                            ).toFixed(2)}
+                        </td>
+
+                        <td>
+                            ${Number(
+                                student.Internal_Average
+                            ).toFixed(2)}
+                        </td>
+
+                        <td class="value">
+                            ${Number(
+                                student.Final_Marks
+                            ).toFixed(2)}
+                        </td>
+
+                        <td>
+                            ${student.Status}
+                        </td>
+
+                    `;
+
+
+                    tableBody.appendChild(row);
+
+                }
+            );
+
+
+            if (filteredStudents.length === 0) {
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            style="
+                                text-align:center;
+                                color:#6b7280;
+                            "
+                        >
+                            No students found
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+
+        }
+
+
+        /* -----------------------------------------
+           SUBJECT CHART
+        ----------------------------------------- */
+
+        let subjectChart = null;
+
+
+        function updateSubjectChart(data) {
+
+            const ctx =
+                document.getElementById(
+                    "subjectChart"
+                );
+
+
+            if (subjectChart) {
+                subjectChart.destroy();
+            }
+
+
+            subjectChart =
+                new Chart(
+                    ctx,
+                    {
+
+                        type: "bar",
+
+                        data: {
+
+                            labels:
+                                Object.keys(data),
+
+                            datasets: [
+
+                                {
+
+                                    label:
+                                        "Average Marks",
+
+                                    data:
+                                        Object.values(data),
+
+                                    backgroundColor:
+                                        "rgba(23, 59, 87, 0.75)"
+
+                                }
+
+                            ]
+
+                        },
+
+                        options: {
+
+                            responsive: true,
+
+                            maintainAspectRatio: false,
+
+                            scales: {
+
+                                y: {
+
+                                    beginAtZero: true,
+
+                                    title: {
+
+                                        display: true,
+
+                                        text:
+                                            "Average Marks"
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+                );
+
+        }
+
+
+        /* -----------------------------------------
+           RESET DASHBOARD
+        ----------------------------------------- */
+
+        function resetDashboard() {
+
+            document.getElementById(
+                "averageAttendance"
+            ).textContent = "0%";
+
+
+            document.getElementById(
+                "averageStudyHours"
+            ).textContent = "0";
+
+
+            document.getElementById(
+                "averageFinalMarks"
+            ).textContent = "0";
+
+
+            document.getElementById(
+                "highestSubjectInsight"
+            ).textContent =
+                "No students match the selected filters.";
+
+
+            document.getElementById(
+                "marksRangeInsight"
+            ).textContent = "-";
+
+
+            document.getElementById(
+                "performanceInsight"
+            ).textContent = "-";
+
+
+            document.getElementById(
+                "studyInsight"
+            ).textContent = "-";
+
+
+            document.getElementById(
+                "attendanceInsight"
+            ).textContent = "-";
+
+
+            document.getElementById(
+                "studyCorrelationInsight"
+            ).textContent = "-";
+
+
+            document.getElementById(
+                "pharmacognosyInsight"
+            ).textContent = "-";
+
+
+            document.getElementById(
+                "internalInsight"
+            ).textContent = "-";
+
+
+            document.getElementById(
+                "attendanceCorrelation"
+            ).textContent = "-";
+
+
+            document.getElementById(
+                "studyCorrelation"
+            ).textContent = "-";
+
+
+            document.getElementById(
+                "pharmacognosyCorrelation"
+            ).textContent = "-";
+
+
+            document.getElementById(
+                "internalCorrelation"
+            ).textContent = "-";
+
+
+            updateStudentTable();
+
+        }
+
+
+        /* -----------------------------------------
+           CLEAR FILTERS
+        ----------------------------------------- */
+
+        function clearFilters() {
+
+            document.getElementById(
+                "studentSearch"
+            ).value = "";
+
+
+            document.getElementById(
+                "genderFilter"
+            ).value = "";
+
+
+            document.getElementById(
+                "statusFilter"
+            ).value = "";
+
+
+            applyFilters();
+
+        }
+
+
+        /* -----------------------------------------
+           FILTER EVENTS
+        ----------------------------------------- */
+
+        document.getElementById(
+            "studentSearch"
+        ).addEventListener(
+            "input",
+            applyFilters
+        );
+
+
+        document.getElementById(
+            "genderFilter"
+        ).addEventListener(
+            "change",
+            applyFilters
+        );
+
+
+        document.getElementById(
+            "statusFilter"
+        ).addEventListener(
+            "change",
+            applyFilters
+        );
+
+
+        /* -----------------------------------------
+           INITIAL LOAD
+        ----------------------------------------- */
+
+        applyFilters();
+
+
+    </script>
 
 
 </body>

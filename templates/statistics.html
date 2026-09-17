@@ -59,6 +59,10 @@
             font-weight: 600;
         }
 
+        .nav-item:hover {
+            color: #173b57;
+        }
+
         .nav-item.active {
             color: #173b57;
             border-bottom: 3px solid #173b57;
@@ -86,6 +90,122 @@
             font-size: 14px;
         }
 
+        /* FILTER PANEL */
+
+        .filter-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 25px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        .filter-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #173b57;
+            margin-bottom: 16px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 7px;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            height: 42px;
+            padding: 0 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 14px;
+            background: white;
+            outline: none;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            border-color: #173b57;
+        }
+
+        .clear-btn {
+            height: 42px;
+            padding: 0 20px;
+            border: none;
+            border-radius: 7px;
+            background: #173b57;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .clear-btn:hover {
+            opacity: 0.9;
+        }
+
+        .filter-result {
+            margin-top: 15px;
+            padding-top: 14px;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .filter-result strong {
+            color: #173b57;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-title {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #173b57;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 6px;
+        }
+
         /* PANEL */
 
         .panel {
@@ -101,6 +221,32 @@
             margin-bottom: 20px;
             font-size: 18px;
             color: #173b57;
+        }
+
+        /* VARIABLE SELECTOR */
+
+        .variable-selector {
+            margin-bottom: 20px;
+        }
+
+        .variable-selector label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 7px;
+        }
+
+        .variable-selector select {
+            width: 100%;
+            max-width: 450px;
+            height: 42px;
+            padding: 0 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            background: white;
+            font-size: 14px;
+            outline: none;
         }
 
         /* TABLE */
@@ -144,41 +290,6 @@
             background: #f9fafb;
         }
 
-        /* STAT CARDS */
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin-bottom: 25px;
-        }
-
-        .card {
-            background: white;
-            padding: 22px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-            border: 1px solid #e5e7eb;
-        }
-
-        .card-title {
-            font-size: 13px;
-            color: #6b7280;
-            margin-bottom: 10px;
-        }
-
-        .card-value {
-            font-size: 28px;
-            font-weight: bold;
-            color: #173b57;
-        }
-
-        .card-subtitle {
-            font-size: 12px;
-            color: #9ca3af;
-            margin-top: 6px;
-        }
-
         /* INFO BOX */
 
         .info-box {
@@ -193,8 +304,21 @@
             line-height: 1.5;
         }
 
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
         .info-box strong {
             color: #173b57;
+        }
+
+        /* NO DATA */
+
+        .no-data {
+            text-align: center;
+            padding: 35px;
+            color: #6b7280;
+            font-size: 14px;
         }
 
         /* FOOTER */
@@ -208,44 +332,50 @@
 
         /* RESPONSIVE */
 
-        /* RESPONSIVE */
+        @media (max-width: 900px) {
 
-@media (max-width: 900px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
 
-}
+        }
 
-@media (max-width: 600px) {
+        @media (max-width: 600px) {
 
-    .cards {
-        grid-template-columns: 1fr;
-    }
+            .cards {
+                grid-template-columns: 1fr;
+            }
 
-    .navbar {
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+            .filters {
+                grid-template-columns: 1fr;
+            }
 
-    .container {
-        padding: 18px;
-    }
+            .navbar {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
 
-    .header {
-        padding: 20px;
-    }
+            .container {
+                padding: 18px;
+            }
 
-    .header h1 {
-        font-size: 22px;
-    }
+            .header {
+                padding: 20px;
+            }
 
-    table {
-        font-size: 12px;
-    }
+            .header h1 {
+                font-size: 22px;
+            }
 
-}
+            table {
+                font-size: 12px;
+            }
+
+        }
 
     </style>
 
@@ -274,31 +404,31 @@
 
     <nav class="navbar">
 
-    <a href="/" class="nav-item">
-        Overview
-    </a>
+        <a href="/" class="nav-item">
+            Overview
+        </a>
 
-    <a href="/academic-analysis" class="nav-item">
-        Academic Analysis
-    </a>
+        <a href="/academic-analysis" class="nav-item">
+            Academic Analysis
+        </a>
 
-    <a href="/correlation" class="nav-item">
-        Correlation
-    </a>
+        <a href="/correlation" class="nav-item">
+            Correlation
+        </a>
 
-    <a href="/statistics" class="nav-item active">
-        Statistics
-    </a>
+        <a href="/statistics" class="nav-item active">
+            Statistics
+        </a>
 
-    <a href="/prediction" class="nav-item">
-        Prediction
-    </a>
+        <a href="/prediction" class="nav-item">
+            Prediction
+        </a>
 
-    <a href="/insights" class="nav-item">
-        Insights
-    </a>
+        <a href="/insights" class="nav-item">
+            Insights
+        </a>
 
-</nav>
+    </nav>
 
 
     <!-- MAIN -->
@@ -321,6 +451,115 @@
         </div>
 
 
+        <!-- FILTER PANEL -->
+
+        <section class="filter-panel">
+
+            <div class="filter-title">
+                Filter Students
+            </div>
+
+
+            <div class="filters">
+
+
+                <!-- STUDENT SEARCH -->
+
+                <div class="filter-group">
+
+                    <label for="studentSearch">
+                        Student ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentSearch"
+                        placeholder="Search Student ID..."
+                    >
+
+                </div>
+
+
+                <!-- GENDER -->
+
+                <div class="filter-group">
+
+                    <label for="genderFilter">
+                        Gender
+                    </label>
+
+                    <select id="genderFilter">
+
+                        <option value="All">
+                            All Genders
+                        </option>
+
+                        <option value="Male">
+                            Male
+                        </option>
+
+                        <option value="Female">
+                            Female
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="filter-group">
+
+                    <label for="statusFilter">
+                        Status
+                    </label>
+
+                    <select id="statusFilter">
+
+                        <option value="All">
+                            All Status
+                        </option>
+
+                        <option value="Pass">
+                            Pass
+                        </option>
+
+                        <option value="Fail">
+                            Fail
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- CLEAR -->
+
+                <button
+                    class="clear-btn"
+                    onclick="clearFilters()"
+                >
+                    Clear Filters
+                </button>
+
+
+            </div>
+
+
+            <div class="filter-result">
+
+                Showing
+                <strong id="filteredCount">0</strong>
+                of
+                <strong id="totalCount">0</strong>
+                students
+
+            </div>
+
+        </section>
+
+
         <!-- SUMMARY CARDS -->
 
         <section class="cards">
@@ -332,8 +571,11 @@
                     Final Marks Mean
                 </div>
 
-                <div class="card-value">
-                    {{ statistics_data["Final_Marks"]["mean"] }}
+                <div
+                    class="card-value"
+                    id="finalMean"
+                >
+                    -
                 </div>
 
                 <div class="card-subtitle">
@@ -349,8 +591,11 @@
                     Final Marks Median
                 </div>
 
-                <div class="card-value">
-                    {{ statistics_data["Final_Marks"]["median"] }}
+                <div
+                    class="card-value"
+                    id="finalMedian"
+                >
+                    -
                 </div>
 
                 <div class="card-subtitle">
@@ -366,8 +611,11 @@
                     Final Marks Standard Deviation
                 </div>
 
-                <div class="card-value">
-                    {{ statistics_data["Final_Marks"]["std"] }}
+                <div
+                    class="card-value"
+                    id="finalStd"
+                >
+                    -
                 </div>
 
                 <div class="card-subtitle">
@@ -380,12 +628,110 @@
         </section>
 
 
-        <!-- STATISTICS TABLE -->
+        <!-- DESCRIPTIVE STATISTICS -->
 
         <div class="panel">
 
             <h3>
                 Descriptive Statistics
+            </h3>
+
+
+            <div class="variable-selector">
+
+                <label for="variableSelect">
+                    Select Variable
+                </label>
+
+                <select id="variableSelect">
+
+                    <option value="Attendance_%">
+                        Attendance
+                    </option>
+
+                    <option value="Study_Hours_Per_Day">
+                        Study Hours Per Day
+                    </option>
+
+                    <option value="Pharmacology">
+                        Pharmacology
+                    </option>
+
+                    <option value="Pharmaceutics">
+                        Pharmaceutics
+                    </option>
+
+                    <option value="Pharmacognosy">
+                        Pharmacognosy
+                    </option>
+
+                    <option value="Internal_Average">
+                        Internal Average
+                    </option>
+
+                    <option value="Final_Marks">
+                        Final Marks
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Variable
+                            </th>
+
+                            <th>
+                                Mean
+                            </th>
+
+                            <th>
+                                Median
+                            </th>
+
+                            <th>
+                                Std. Deviation
+                            </th>
+
+                            <th>
+                                Minimum
+                            </th>
+
+                            <th>
+                                Maximum
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="statisticsTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALL VARIABLES TABLE -->
+
+        <div class="panel">
+
+            <h3>
+                Complete Statistical Summary
             </h3>
 
             <div class="table-container">
@@ -425,211 +771,7 @@
                     </thead>
 
 
-                    <tbody>
-
-
-                        <tr>
-
-                            <td>
-                                Attendance
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Attendance_%"]["mean"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Attendance_%"]["median"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Attendance_%"]["std"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Attendance_%"]["min"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Attendance_%"]["max"] }}
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                Study Hours Per Day
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Study_Hours_Per_Day"]["mean"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Study_Hours_Per_Day"]["median"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Study_Hours_Per_Day"]["std"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Study_Hours_Per_Day"]["min"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Study_Hours_Per_Day"]["max"] }}
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                Pharmacology
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmacology"]["mean"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmacology"]["median"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmacology"]["std"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmacology"]["min"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmacology"]["max"] }}
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                Pharmaceutics
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmaceutics"]["mean"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmaceutics"]["median"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmaceutics"]["std"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmaceutics"]["min"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmaceutics"]["max"] }}
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                Pharmacognosy
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmacognosy"]["mean"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmacognosy"]["median"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmacognosy"]["std"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmacognosy"]["min"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Pharmacognosy"]["max"] }}
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                Internal Average
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Internal_Average"]["mean"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Internal_Average"]["median"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Internal_Average"]["std"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Internal_Average"]["min"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Internal_Average"]["max"] }}
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                Final Marks
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Final_Marks"]["mean"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Final_Marks"]["median"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Final_Marks"]["std"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Final_Marks"]["min"] }}
-                            </td>
-
-                            <td>
-                                {{ statistics_data["Final_Marks"]["max"] }}
-                            </td>
-
-                        </tr>
-
+                    <tbody id="allStatisticsBody">
 
                     </tbody>
 
@@ -694,6 +836,713 @@
         Python • Flask • Pandas • Machine Learning
 
     </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+
+        // ------------------------------------------------
+        // STUDENT DATA
+        // ------------------------------------------------
+
+        const students = {{ students | tojson }};
+
+
+        // ------------------------------------------------
+        // VARIABLES
+        // ------------------------------------------------
+
+        const variables = [
+
+            {
+                label: "Attendance",
+                field: "Attendance_%"
+            },
+
+            {
+                label: "Study Hours Per Day",
+                field: "Study_Hours_Per_Day"
+            },
+
+            {
+                label: "Pharmacology",
+                field: "Pharmacology"
+            },
+
+            {
+                label: "Pharmaceutics",
+                field: "Pharmaceutics"
+            },
+
+            {
+                label: "Pharmacognosy",
+                field: "Pharmacognosy"
+            },
+
+            {
+                label: "Internal Average",
+                field: "Internal_Average"
+            },
+
+            {
+                label: "Final Marks",
+                field: "Final_Marks"
+            }
+
+        ];
+
+
+        // ------------------------------------------------
+        // DOM ELEMENTS
+        // ------------------------------------------------
+
+        const studentSearch =
+            document.getElementById(
+                "studentSearch"
+            );
+
+
+        const genderFilter =
+            document.getElementById(
+                "genderFilter"
+            );
+
+
+        const statusFilter =
+            document.getElementById(
+                "statusFilter"
+            );
+
+
+        const variableSelect =
+            document.getElementById(
+                "variableSelect"
+            );
+
+
+        // ------------------------------------------------
+        // GET FILTERED STUDENTS
+        // ------------------------------------------------
+
+        function getFilteredStudents() {
+
+            const searchValue =
+                studentSearch.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const selectedGender =
+                genderFilter.value;
+
+
+            const selectedStatus =
+                statusFilter.value;
+
+
+            return students.filter(
+                student => {
+
+                    const studentId =
+                        String(
+                            student.Student_ID
+                        ).toLowerCase();
+
+
+                    const gender =
+                        String(
+                            student.Gender
+                        ).toLowerCase();
+
+
+                    const status =
+                        String(
+                            student.Status
+                        ).toLowerCase();
+
+
+                    const matchesSearch =
+                        searchValue === "" ||
+                        studentId.includes(
+                            searchValue
+                        );
+
+
+                    const matchesGender =
+                        selectedGender === "All" ||
+                        gender ===
+                        selectedGender.toLowerCase();
+
+
+                    const matchesStatus =
+                        selectedStatus === "All" ||
+                        status ===
+                        selectedStatus.toLowerCase();
+
+
+                    return (
+                        matchesSearch &&
+                        matchesGender &&
+                        matchesStatus
+                    );
+
+                }
+            );
+
+        }
+
+
+        // ------------------------------------------------
+        // GET NUMERIC VALUES
+        // ------------------------------------------------
+
+        function getValues(
+            data,
+            field
+        ) {
+
+            return data
+
+                .map(
+                    student =>
+                        Number(student[field])
+                )
+
+                .filter(
+                    value =>
+                        Number.isFinite(value)
+                );
+
+        }
+
+
+        // ------------------------------------------------
+        // MEAN
+        // ------------------------------------------------
+
+        function calculateMean(values) {
+
+            if (values.length === 0) {
+                return null;
+            }
+
+
+            return values.reduce(
+                (sum, value) =>
+                    sum + value,
+                0
+            ) / values.length;
+
+        }
+
+
+        // ------------------------------------------------
+        // MEDIAN
+        // ------------------------------------------------
+
+        function calculateMedian(values) {
+
+            if (values.length === 0) {
+                return null;
+            }
+
+
+            const sorted =
+                [...values].sort(
+                    (a, b) => a - b
+                );
+
+
+            const middle =
+                Math.floor(
+                    sorted.length / 2
+                );
+
+
+            if (
+                sorted.length % 2 === 0
+            ) {
+
+                return (
+                    sorted[middle - 1] +
+                    sorted[middle]
+                ) / 2;
+
+            }
+
+
+            return sorted[middle];
+
+        }
+
+
+        // ------------------------------------------------
+        // STANDARD DEVIATION
+        // ------------------------------------------------
+
+        function calculateStd(values) {
+
+            if (values.length < 2) {
+                return null;
+            }
+
+
+            const mean =
+                calculateMean(values);
+
+
+            const squaredDifferences =
+                values.map(
+                    value =>
+                        Math.pow(
+                            value - mean,
+                            2
+                        )
+                );
+
+
+            const variance =
+                squaredDifferences.reduce(
+                    (sum, value) =>
+                        sum + value,
+                    0
+                ) /
+                (values.length - 1);
+
+
+            return Math.sqrt(
+                variance
+            );
+
+        }
+
+
+        // ------------------------------------------------
+        // FORMAT NUMBER
+        // ------------------------------------------------
+
+        function formatNumber(value) {
+
+            if (
+                value === null ||
+                !Number.isFinite(value)
+            ) {
+
+                return "N/A";
+
+            }
+
+
+            return value.toFixed(2);
+
+        }
+
+
+        // ------------------------------------------------
+        // CALCULATE STATISTICS
+        // ------------------------------------------------
+
+        function calculateStatistics(
+            data,
+            field
+        ) {
+
+            const values =
+                getValues(
+                    data,
+                    field
+                );
+
+
+            if (values.length === 0) {
+
+                return {
+
+                    mean: null,
+
+                    median: null,
+
+                    std: null,
+
+                    min: null,
+
+                    max: null
+
+                };
+
+            }
+
+
+            return {
+
+                mean:
+                    calculateMean(values),
+
+                median:
+                    calculateMedian(values),
+
+                std:
+                    calculateStd(values),
+
+                min:
+                    Math.min(...values),
+
+                max:
+                    Math.max(...values)
+
+            };
+
+        }
+
+
+        // ------------------------------------------------
+        // UPDATE FINAL MARK CARDS
+        // ------------------------------------------------
+
+        function updateFinalMarkCards(
+            data
+        ) {
+
+            const statistics =
+                calculateStatistics(
+                    data,
+                    "Final_Marks"
+                );
+
+
+            document.getElementById(
+                "finalMean"
+            ).textContent =
+                formatNumber(
+                    statistics.mean
+                );
+
+
+            document.getElementById(
+                "finalMedian"
+            ).textContent =
+                formatNumber(
+                    statistics.median
+                );
+
+
+            document.getElementById(
+                "finalStd"
+            ).textContent =
+                formatNumber(
+                    statistics.std
+                );
+
+        }
+
+
+        // ------------------------------------------------
+        // UPDATE SELECTED VARIABLE
+        // ------------------------------------------------
+
+        function updateSelectedVariable(
+            data
+        ) {
+
+            const selectedField =
+                variableSelect.value;
+
+
+            const variable =
+                variables.find(
+                    item =>
+                        item.field ===
+                        selectedField
+                );
+
+
+            const statistics =
+                calculateStatistics(
+                    data,
+                    selectedField
+                );
+
+
+            const tableBody =
+                document.getElementById(
+                    "statisticsTableBody"
+                );
+
+
+            tableBody.innerHTML = "";
+
+
+            if (
+                statistics.mean === null
+            ) {
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="6"
+                            class="no-data">
+
+                            No data available
+                            for the selected filters.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+
+            }
+
+
+            tableBody.innerHTML = `
+
+                <tr>
+
+                    <td>
+                        ${variable.label}
+                    </td>
+
+                    <td>
+                        ${formatNumber(
+                            statistics.mean
+                        )}
+                    </td>
+
+                    <td>
+                        ${formatNumber(
+                            statistics.median
+                        )}
+                    </td>
+
+                    <td>
+                        ${formatNumber(
+                            statistics.std
+                        )}
+                    </td>
+
+                    <td>
+                        ${formatNumber(
+                            statistics.min
+                        )}
+                    </td>
+
+                    <td>
+                        ${formatNumber(
+                            statistics.max
+                        )}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+
+        // ------------------------------------------------
+        // UPDATE COMPLETE TABLE
+        // ------------------------------------------------
+
+        function updateAllStatistics(
+            data
+        ) {
+
+            const tableBody =
+                document.getElementById(
+                    "allStatisticsBody"
+                );
+
+
+            tableBody.innerHTML = "";
+
+
+            variables.forEach(
+                variable => {
+
+                    const statistics =
+                        calculateStatistics(
+                            data,
+                            variable.field
+                        );
+
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            ${variable.label}
+                        </td>
+
+                        <td>
+                            ${formatNumber(
+                                statistics.mean
+                            )}
+                        </td>
+
+                        <td>
+                            ${formatNumber(
+                                statistics.median
+                            )}
+                        </td>
+
+                        <td>
+                            ${formatNumber(
+                                statistics.std
+                            )}
+                        </td>
+
+                        <td>
+                            ${formatNumber(
+                                statistics.min
+                            )}
+                        </td>
+
+                        <td>
+                            ${formatNumber(
+                                statistics.max
+                            )}
+                        </td>
+
+                    `;
+
+
+                    tableBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+            if (data.length === 0) {
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="6"
+                            class="no-data">
+
+                            No students match
+                            the selected filters.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+
+        }
+
+
+        // ------------------------------------------------
+        // UPDATE EVERYTHING
+        // ------------------------------------------------
+
+        function updateStatistics() {
+
+            const filteredStudents =
+                getFilteredStudents();
+
+
+            document.getElementById(
+                "filteredCount"
+            ).textContent =
+                filteredStudents.length;
+
+
+            document.getElementById(
+                "totalCount"
+            ).textContent =
+                students.length;
+
+
+            updateFinalMarkCards(
+                filteredStudents
+            );
+
+
+            updateSelectedVariable(
+                filteredStudents
+            );
+
+
+            updateAllStatistics(
+                filteredStudents
+            );
+
+        }
+
+
+        // ------------------------------------------------
+        // CLEAR FILTERS
+        // ------------------------------------------------
+
+        function clearFilters() {
+
+            studentSearch.value = "";
+
+            genderFilter.value = "All";
+
+            statusFilter.value = "All";
+
+            variableSelect.value =
+                "Attendance_%";
+
+
+            updateStatistics();
+
+        }
+
+
+        // ------------------------------------------------
+        // EVENT LISTENERS
+        // ------------------------------------------------
+
+        studentSearch.addEventListener(
+            "input",
+            updateStatistics
+        );
+
+
+        genderFilter.addEventListener(
+            "change",
+            updateStatistics
+        );
+
+
+        statusFilter.addEventListener(
+            "change",
+            updateStatistics
+        );
+
+
+        variableSelect.addEventListener(
+            "change",
+            updateStatistics
+        );
+
+
+        // ------------------------------------------------
+        // INITIAL LOAD
+        // ------------------------------------------------
+
+        updateStatistics();
+
+
+    </script>
 
 
 </body>

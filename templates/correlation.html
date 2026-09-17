@@ -61,6 +61,10 @@
             font-weight: 600;
         }
 
+        .nav-item:hover {
+            color: #173b57;
+        }
+
         .nav-item.active {
             color: #173b57;
             border-bottom: 3px solid #173b57;
@@ -86,6 +90,87 @@
         .page-title p {
             color: #6b7280;
             font-size: 14px;
+        }
+
+        /* FILTER PANEL */
+
+        .filter-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 25px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        .filter-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #173b57;
+            margin-bottom: 16px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 7px;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            height: 42px;
+            padding: 0 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 14px;
+            background: white;
+            outline: none;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            border-color: #173b57;
+        }
+
+        .clear-btn {
+            height: 42px;
+            padding: 0 20px;
+            border: none;
+            border-radius: 7px;
+            background: #173b57;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .clear-btn:hover {
+            opacity: 0.9;
+        }
+
+        .filter-result {
+            margin-top: 15px;
+            padding-top: 14px;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .filter-result strong {
+            color: #173b57;
         }
 
         /* CARDS */
@@ -144,6 +229,7 @@
 
         .chart-container {
             height: 400px;
+            position: relative;
         }
 
         /* TABLE */
@@ -180,6 +266,15 @@
             color: #173b57;
         }
 
+        .strength {
+            font-size: 12px;
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #f0f6fa;
+            color: #173b57;
+            display: inline-block;
+        }
+
         /* INFO */
 
         .info-box {
@@ -194,8 +289,21 @@
             line-height: 1.5;
         }
 
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
         .info-box strong {
             color: #173b57;
+        }
+
+        /* NO DATA */
+
+        .no-data {
+            text-align: center;
+            padding: 35px;
+            color: #6b7280;
+            font-size: 14px;
         }
 
         /* FOOTER */
@@ -209,52 +317,56 @@
 
         /* RESPONSIVE */
 
-        /* RESPONSIVE */
+        @media (max-width: 900px) {
 
-@media (max-width: 900px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
 
-    .chart-container {
-        height: 350px;
-    }
+            .chart-container {
+                height: 350px;
+            }
+        }
 
-}
+        @media (max-width: 600px) {
 
-@media (max-width: 600px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
 
-    .cards {
-        grid-template-columns: 1fr;
-    }
+            .filters {
+                grid-template-columns: 1fr;
+            }
 
-    .navbar {
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+            .navbar {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
 
-    .container {
-        padding: 18px;
-    }
+            .container {
+                padding: 18px;
+            }
 
-    .header {
-        padding: 20px;
-    }
+            .header {
+                padding: 20px;
+            }
 
-    .header h1 {
-        font-size: 22px;
-    }
+            .header h1 {
+                font-size: 22px;
+            }
 
-    .chart-container {
-        height: 280px;
-    }
+            .chart-container {
+                height: 300px;
+            }
 
-    table {
-        font-size: 12px;
-    }
-
-}
+            table {
+                font-size: 12px;
+            }
+        }
 
     </style>
 
@@ -283,31 +395,31 @@
 
     <nav class="navbar">
 
-    <a href="/" class="nav-item">
-        Overview
-    </a>
+        <a href="/" class="nav-item">
+            Overview
+        </a>
 
-    <a href="/academic-analysis" class="nav-item">
-        Academic Analysis
-    </a>
+        <a href="/academic-analysis" class="nav-item">
+            Academic Analysis
+        </a>
 
-    <a href="/correlation" class="nav-item active">
-        Correlation
-    </a>
+        <a href="/correlation" class="nav-item active">
+            Correlation
+        </a>
 
-    <a href="/statistics" class="nav-item">
-        Statistics
-    </a>
+        <a href="/statistics" class="nav-item">
+            Statistics
+        </a>
 
-    <a href="/prediction" class="nav-item">
-        Prediction
-    </a>
+        <a href="/prediction" class="nav-item">
+            Prediction
+        </a>
 
-    <a href="/insights" class="nav-item">
-        Insights
-    </a>
+        <a href="/insights" class="nav-item">
+            Insights
+        </a>
 
-</nav>
+    </nav>
 
 
     <!-- MAIN -->
@@ -330,6 +442,104 @@
         </div>
 
 
+        <!-- FILTERS -->
+
+        <section class="filter-panel">
+
+            <div class="filter-title">
+                Filter Students
+            </div>
+
+            <div class="filters">
+
+                <div class="filter-group">
+
+                    <label for="studentSearch">
+                        Student ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentSearch"
+                        placeholder="Search Student ID..."
+                    >
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label for="genderFilter">
+                        Gender
+                    </label>
+
+                    <select id="genderFilter">
+
+                        <option value="All">
+                            All Genders
+                        </option>
+
+                        <option value="Male">
+                            Male
+                        </option>
+
+                        <option value="Female">
+                            Female
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label for="statusFilter">
+                        Status
+                    </label>
+
+                    <select id="statusFilter">
+
+                        <option value="All">
+                            All Status
+                        </option>
+
+                        <option value="Pass">
+                            Pass
+                        </option>
+
+                        <option value="Fail">
+                            Fail
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    class="clear-btn"
+                    onclick="clearFilters()"
+                >
+                    Clear Filters
+                </button>
+
+            </div>
+
+
+            <div class="filter-result">
+
+                Showing
+                <strong id="filteredCount">0</strong>
+                of
+                <strong id="totalCount">0</strong>
+                students
+
+            </div>
+
+        </section>
+
+
         <!-- SUMMARY CARDS -->
 
         <section class="cards">
@@ -341,8 +551,11 @@
                     Attendance Correlation
                 </div>
 
-                <div class="card-value">
-                    {{ attendance_corr }}
+                <div
+                    class="card-value"
+                    id="attendanceCorr"
+                >
+                    -
                 </div>
 
                 <div class="card-subtitle">
@@ -358,8 +571,11 @@
                     Study Hours Correlation
                 </div>
 
-                <div class="card-value">
-                    {{ study_hours_corr }}
+                <div
+                    class="card-value"
+                    id="studyHoursCorr"
+                >
+                    -
                 </div>
 
                 <div class="card-subtitle">
@@ -375,8 +591,11 @@
                     Internal Average Correlation
                 </div>
 
-                <div class="card-value">
-                    {{ internal_average_corr }}
+                <div
+                    class="card-value"
+                    id="internalAverageCorr"
+                >
+                    -
                 </div>
 
                 <div class="card-subtitle">
@@ -430,53 +649,16 @@
                                 Correlation with Final Marks
                             </th>
 
+                            <th>
+                                Relationship
+                            </th>
+
                         </tr>
 
                     </thead>
 
-                    <tbody>
 
-                        <tr>
-                            <td>Attendance</td>
-                            <td class="correlation-value">
-                                {{ attendance_corr }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Study Hours</td>
-                            <td class="correlation-value">
-                                {{ study_hours_corr }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Pharmacology</td>
-                            <td class="correlation-value">
-                                {{ pharmacology_corr }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Pharmaceutics</td>
-                            <td class="correlation-value">
-                                {{ pharmaceutics_corr }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Pharmacognosy</td>
-                            <td class="correlation-value">
-                                {{ pharmacognosy_corr }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Internal Average</td>
-                            <td class="correlation-value">
-                                {{ internal_average_corr }}
-                            </td>
-                        </tr>
+                    <tbody id="correlationTableBody">
 
                     </tbody>
 
@@ -500,24 +682,33 @@
                 <p>
                     <strong>Correlation value:</strong>
                     The correlation coefficient indicates the strength and direction
-                    of the relationship between two numerical variables.
+                    of the linear relationship between two numerical variables.
                 </p>
 
                 <p>
-                    A value closer to <strong>+1</strong> indicates a stronger
-                    positive relationship, while a value closer to
-                    <strong>-1</strong> indicates a stronger negative relationship.
+                    A value closer to
+                    <strong>+1</strong>
+                    indicates a stronger positive relationship, while a value closer to
+                    <strong>-1</strong>
+                    indicates a stronger negative relationship.
                 </p>
 
                 <p>
-                    Values closer to <strong>0</strong> indicate a weaker linear
-                    relationship.
+                    Values closer to
+                    <strong>0</strong>
+                    indicate a weaker linear relationship.
                 </p>
 
                 <p>
                     In this project, the analysis examines how attendance,
                     study hours, subject marks and internal average are related
                     to final marks.
+                </p>
+
+                <p>
+                    <strong>Note:</strong>
+                    Correlation describes an association between variables;
+                    it does not by itself establish causation.
                 </p>
 
             </div>
@@ -541,84 +732,695 @@
     </footer>
 
 
-    <!-- CHART JAVASCRIPT -->
+    <!-- JAVASCRIPT -->
 
     <script>
 
-        const correlationLabels = {{ correlation_labels | tojson }};
+        // ------------------------------------------------
+        // STUDENT DATA FROM FLASK
+        // ------------------------------------------------
 
-        const correlationValues = {{ correlation_values | tojson }};
+        const students = {{ students | tojson }};
 
 
-        new Chart(
-            document.getElementById("correlationChart"),
+        // ------------------------------------------------
+        // DOM ELEMENTS
+        // ------------------------------------------------
+
+        const studentSearch =
+            document.getElementById("studentSearch");
+
+        const genderFilter =
+            document.getElementById("genderFilter");
+
+        const statusFilter =
+            document.getElementById("statusFilter");
+
+        const filteredCount =
+            document.getElementById("filteredCount");
+
+        const totalCount =
+            document.getElementById("totalCount");
+
+
+        // ------------------------------------------------
+        // CORRELATION VARIABLES
+        // ------------------------------------------------
+
+        const correlationFields = [
+
             {
+                label: "Attendance",
+                field: "Attendance_%"
+            },
 
-                type: "bar",
+            {
+                label: "Study Hours",
+                field: "Study_Hours_Per_Day"
+            },
 
-                data: {
+            {
+                label: "Pharmacology",
+                field: "Pharmacology"
+            },
 
-                    labels: correlationLabels,
+            {
+                label: "Pharmaceutics",
+                field: "Pharmaceutics"
+            },
 
-                    datasets: [
+            {
+                label: "Pharmacognosy",
+                field: "Pharmacognosy"
+            },
 
-                        {
-                            label: "Correlation with Final Marks",
+            {
+                label: "Internal Average",
+                field: "Internal_Average"
+            }
 
-                            data: correlationValues,
+        ];
 
-                            backgroundColor: "#2878a8",
 
-                            borderRadius: 8
-                        }
+        // ------------------------------------------------
+        // GET FILTERED STUDENTS
+        // ------------------------------------------------
 
-                    ]
+        function getFilteredStudents() {
 
-                },
+            const searchValue =
+                studentSearch.value
+                .trim()
+                .toLowerCase();
 
-                options: {
+            const selectedGender =
+                genderFilter.value;
 
-                    responsive: true,
+            const selectedStatus =
+                statusFilter.value;
 
-                    maintainAspectRatio: false,
 
-                    scales: {
+            return students.filter(student => {
 
-                        y: {
+                const studentId =
+                    String(student.Student_ID)
+                    .toLowerCase();
 
-                            min: -1,
+                const gender =
+                    String(student.Gender);
 
-                            max: 1,
+                const status =
+                    String(student.Status);
 
-                            ticks: {
 
-                                stepSize: 0.2
+                const matchesSearch =
+                    searchValue === "" ||
+                    studentId.includes(searchValue);
+
+
+                const matchesGender =
+                    selectedGender === "All" ||
+                    gender.toLowerCase() ===
+                    selectedGender.toLowerCase();
+
+
+                const matchesStatus =
+                    selectedStatus === "All" ||
+                    status.toLowerCase() ===
+                    selectedStatus.toLowerCase();
+
+
+                return (
+                    matchesSearch &&
+                    matchesGender &&
+                    matchesStatus
+                );
+
+            });
+
+        }
+
+
+        // ------------------------------------------------
+        // PEARSON CORRELATION
+        // ------------------------------------------------
+
+        function calculateCorrelation(
+            data,
+            xField,
+            yField
+        ) {
+
+            if (data.length < 2) {
+                return null;
+            }
+
+
+            const pairs = data
+                .map(student => {
+
+                    const x =
+                        Number(student[xField]);
+
+                    const y =
+                        Number(student[yField]);
+
+                    return {
+                        x: x,
+                        y: y
+                    };
+
+                })
+                .filter(pair =>
+                    Number.isFinite(pair.x) &&
+                    Number.isFinite(pair.y)
+                );
+
+
+            if (pairs.length < 2) {
+                return null;
+            }
+
+
+            const xValues =
+                pairs.map(pair => pair.x);
+
+            const yValues =
+                pairs.map(pair => pair.y);
+
+
+            const xMean =
+                xValues.reduce(
+                    (sum, value) => sum + value,
+                    0
+                ) / xValues.length;
+
+
+            const yMean =
+                yValues.reduce(
+                    (sum, value) => sum + value,
+                    0
+                ) / yValues.length;
+
+
+            let numerator = 0;
+
+            let xSquared = 0;
+
+            let ySquared = 0;
+
+
+            for (
+                let i = 0;
+                i < pairs.length;
+                i++
+            ) {
+
+                const xDifference =
+                    xValues[i] - xMean;
+
+                const yDifference =
+                    yValues[i] - yMean;
+
+
+                numerator +=
+                    xDifference * yDifference;
+
+
+                xSquared +=
+                    xDifference * xDifference;
+
+
+                ySquared +=
+                    yDifference * yDifference;
+
+            }
+
+
+            const denominator =
+                Math.sqrt(
+                    xSquared * ySquared
+                );
+
+
+            if (denominator === 0) {
+                return null;
+            }
+
+
+            return numerator / denominator;
+
+        }
+
+
+        // ------------------------------------------------
+        // FORMAT CORRELATION
+        // ------------------------------------------------
+
+        function formatCorrelation(value) {
+
+            if (value === null ||
+                !Number.isFinite(value)) {
+
+                return "N/A";
+
+            }
+
+            return value.toFixed(3);
+
+        }
+
+
+        // ------------------------------------------------
+        // RELATIONSHIP DESCRIPTION
+        // ------------------------------------------------
+
+        function getRelationship(value) {
+
+            if (
+                value === null ||
+                !Number.isFinite(value)
+            ) {
+
+                return "Not enough data";
+
+            }
+
+
+            const absoluteValue =
+                Math.abs(value);
+
+
+            if (absoluteValue >= 0.70) {
+
+                if (value > 0) {
+                    return "Strong positive";
+                }
+
+                return "Strong negative";
+
+            }
+
+
+            if (absoluteValue >= 0.40) {
+
+                if (value > 0) {
+                    return "Moderate positive";
+                }
+
+                return "Moderate negative";
+
+            }
+
+
+            if (absoluteValue >= 0.20) {
+
+                if (value > 0) {
+                    return "Weak positive";
+                }
+
+                return "Weak negative";
+
+            }
+
+
+            return "Very weak / none";
+
+        }
+
+
+        // ------------------------------------------------
+        // UPDATE CORRELATION ANALYSIS
+        // ------------------------------------------------
+
+        function updateCorrelation() {
+
+            const filteredStudents =
+                getFilteredStudents();
+
+
+            // Update count
+
+            filteredCount.textContent =
+                filteredStudents.length;
+
+            totalCount.textContent =
+                students.length;
+
+
+            const correlationResults = [];
+
+
+            correlationFields.forEach(item => {
+
+                const correlation =
+                    calculateCorrelation(
+                        filteredStudents,
+                        item.field,
+                        "Final_Marks"
+                    );
+
+
+                correlationResults.push({
+
+                    label: item.label,
+
+                    value: correlation
+
+                });
+
+            });
+
+
+            // ------------------------------------------------
+            // UPDATE SUMMARY CARDS
+            // ------------------------------------------------
+
+            const attendanceValue =
+                correlationResults.find(
+                    item =>
+                        item.label === "Attendance"
+                );
+
+
+            const studyHoursValue =
+                correlationResults.find(
+                    item =>
+                        item.label === "Study Hours"
+                );
+
+
+            const internalAverageValue =
+                correlationResults.find(
+                    item =>
+                        item.label === "Internal Average"
+                );
+
+
+            document.getElementById(
+                "attendanceCorr"
+            ).textContent =
+                formatCorrelation(
+                    attendanceValue.value
+                );
+
+
+            document.getElementById(
+                "studyHoursCorr"
+            ).textContent =
+                formatCorrelation(
+                    studyHoursValue.value
+                );
+
+
+            document.getElementById(
+                "internalAverageCorr"
+            ).textContent =
+                formatCorrelation(
+                    internalAverageValue.value
+                );
+
+
+            // ------------------------------------------------
+            // UPDATE TABLE
+            // ------------------------------------------------
+
+            updateCorrelationTable(
+                correlationResults
+            );
+
+
+            // ------------------------------------------------
+            // UPDATE CHART
+            // ------------------------------------------------
+
+            updateCorrelationChart(
+                correlationResults
+            );
+
+        }
+
+
+        // ------------------------------------------------
+        // UPDATE TABLE
+        // ------------------------------------------------
+
+        function updateCorrelationTable(
+            results
+        ) {
+
+            const tableBody =
+                document.getElementById(
+                    "correlationTableBody"
+                );
+
+
+            tableBody.innerHTML = "";
+
+
+            if (results.length === 0) {
+
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="no-data">
+                            No correlation data available.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+            }
+
+
+            results.forEach(result => {
+
+                const row =
+                    document.createElement("tr");
+
+
+                const value =
+                    formatCorrelation(
+                        result.value
+                    );
+
+
+                const relationship =
+                    getRelationship(
+                        result.value
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${result.label}
+                    </td>
+
+                    <td class="correlation-value">
+                        ${value}
+                    </td>
+
+                    <td>
+                        <span class="strength">
+                            ${relationship}
+                        </span>
+                    </td>
+
+                `;
+
+
+                tableBody.appendChild(row);
+
+            });
+
+        }
+
+
+        // ------------------------------------------------
+        // CHART
+        // ------------------------------------------------
+
+        let correlationChart = null;
+
+
+        function updateCorrelationChart(
+            results
+        ) {
+
+            const labels =
+                results.map(
+                    item => item.label
+                );
+
+
+            const values =
+                results.map(
+                    item =>
+                        item.value === null
+                            ? 0
+                            : Number(item.value.toFixed(3))
+                );
+
+
+            const ctx =
+                document
+                    .getElementById(
+                        "correlationChart"
+                    )
+                    .getContext("2d");
+
+
+            if (correlationChart) {
+
+                correlationChart.destroy();
+
+            }
+
+
+            correlationChart =
+                new Chart(
+                    ctx,
+                    {
+
+                        type: "bar",
+
+                        data: {
+
+                            labels: labels,
+
+                            datasets: [
+
+                                {
+
+                                    label:
+                                        "Correlation with Final Marks",
+
+                                    data: values,
+
+                                    backgroundColor:
+                                        "#2878a8",
+
+                                    borderRadius: 8
+
+                                }
+
+                            ]
+
+                        },
+
+                        options: {
+
+                            responsive: true,
+
+                            maintainAspectRatio: false,
+
+                            scales: {
+
+                                y: {
+
+                                    min: -1,
+
+                                    max: 1,
+
+                                    ticks: {
+
+                                        stepSize: 0.2
+
+                                    },
+
+                                    title: {
+
+                                        display: true,
+
+                                        text:
+                                            "Correlation Coefficient"
+
+                                    }
+
+                                }
+
                             },
 
-                            title: {
+                            plugins: {
 
-                                display: true,
+                                legend: {
 
-                                text: "Correlation Coefficient"
+                                    display: true
+
+                                },
+
+                                tooltip: {
+
+                                    callbacks: {
+
+                                        label:
+                                            function(context) {
+
+                                                return (
+                                                    " Correlation: " +
+                                                    context.raw
+                                                );
+
+                                            }
+
+                                    }
+
+                                }
+
                             }
 
                         }
 
-                    },
-
-                    plugins: {
-
-                        legend: {
-
-                            display: true
-                        }
-
                     }
+                );
 
-                }
+        }
 
-            }
+
+        // ------------------------------------------------
+        // CLEAR FILTERS
+        // ------------------------------------------------
+
+        function clearFilters() {
+
+            studentSearch.value = "";
+
+            genderFilter.value = "All";
+
+            statusFilter.value = "All";
+
+            updateCorrelation();
+
+        }
+
+
+        // ------------------------------------------------
+        // EVENT LISTENERS
+        // ------------------------------------------------
+
+        studentSearch.addEventListener(
+            "input",
+            updateCorrelation
         );
+
+
+        genderFilter.addEventListener(
+            "change",
+            updateCorrelation
+        );
+
+
+        statusFilter.addEventListener(
+            "change",
+            updateCorrelation
+        );
+
+
+        // ------------------------------------------------
+        // INITIAL LOAD
+        // ------------------------------------------------
+
+        updateCorrelation();
 
     </script>
 

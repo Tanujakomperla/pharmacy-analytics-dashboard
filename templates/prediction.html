@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -50,7 +48,7 @@
             display: flex;
             gap: 8px;
             border-bottom: 1px solid #e5e7eb;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
         }
 
         .nav-item {
@@ -88,7 +86,7 @@
             font-size: 14px;
         }
 
-        /* MODEL CARDS */
+        /* CARDS */
 
         .cards {
             display: grid;
@@ -101,7 +99,7 @@
             background: white;
             padding: 22px;
             border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
             border: 1px solid #e5e7eb;
         }
 
@@ -135,7 +133,7 @@
             background: white;
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
             border: 1px solid #e5e7eb;
             margin-bottom: 20px;
         }
@@ -143,6 +141,64 @@
         .panel h3 {
             margin-bottom: 20px;
             font-size: 18px;
+            color: #173b57;
+        }
+
+        /* STUDENT SELECTOR */
+
+        .student-selector {
+            background: #f0f6fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .student-selector label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .student-selector select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .student-selector select:focus {
+            border-color: #2878a8;
+        }
+
+        /* STUDENT DETAILS */
+
+        .student-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .detail-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            padding: 14px;
+            border-radius: 8px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 17px;
+            font-weight: bold;
             color: #173b57;
         }
 
@@ -216,13 +272,41 @@
             color: #6b7280;
         }
 
+        /* COMPARISON */
+
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .comparison-item {
+            text-align: center;
+            padding: 18px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+        }
+
+        .comparison-item h4 {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .comparison-item strong {
+            font-size: 25px;
+            color: #173b57;
+        }
+
         /* CHART */
 
         .chart-container {
             height: 400px;
         }
 
-        /* MODEL INFO */
+        /* INFO */
 
         .info-box {
             background: #f0f6fa;
@@ -236,8 +320,24 @@
             line-height: 1.5;
         }
 
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
         .info-box strong {
             color: #173b57;
+        }
+
+        /* NOTE */
+
+        .note {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fff8e8;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.5;
         }
 
         /* FOOTER */
@@ -260,41 +360,45 @@
             .content-grid {
                 grid-template-columns: 1fr;
             }
-
         }
 
         @media (max-width: 600px) {
 
-    .cards {
-        grid-template-columns: 1fr;
-    }
+            .cards {
+                grid-template-columns: 1fr;
+            }
 
-    .navbar {
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+            .student-details {
+                grid-template-columns: 1fr;
+            }
 
-    .container {
-        padding: 18px;
-    }
+            .comparison-box {
+                grid-template-columns: 1fr;
+            }
 
-    .header {
-        padding: 20px;
-    }
+            .navbar {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
 
-    .header h1 {
-        font-size: 22px;
-    }
+            .container {
+                padding: 18px;
+            }
 
-}
+            .header {
+                padding: 20px;
+            }
 
+            .header h1 {
+                font-size: 22px;
+            }
+        }
     </style>
 
 </head>
 
 
 <body>
-
 
     <!-- HEADER -->
 
@@ -312,14 +416,35 @@
 
 
     <!-- NAVIGATION -->
-<nav class="navbar">
-    <a href="/" class="nav-item">Overview</a>
-    <a href="/academic-analysis" class="nav-item">Academic Analysis</a>
-    <a href="/correlation" class="nav-item">Correlation</a>
-    <a href="/statistics" class="nav-item">Statistics</a>
-    <a href="/prediction" class="nav-item active">Prediction</a>
-    <a href="/insights" class="nav-item">Insights</a>
-</nav>
+
+    <nav class="navbar">
+
+        <a href="/" class="nav-item">
+            Overview
+        </a>
+
+        <a href="/academic-analysis" class="nav-item">
+            Academic Analysis
+        </a>
+
+        <a href="/correlation" class="nav-item">
+            Correlation
+        </a>
+
+        <a href="/statistics" class="nav-item">
+            Statistics
+        </a>
+
+        <a href="/prediction" class="nav-item active">
+            Prediction
+        </a>
+
+        <a href="/insights" class="nav-item">
+            Insights
+        </a>
+
+    </nav>
+
 
     <!-- MAIN -->
 
@@ -335,7 +460,7 @@
             </h2>
 
             <p>
-                Linear regression model for predicting student final marks
+                Interactive machine learning model for predicting student final marks
             </p>
 
         </div>
@@ -344,7 +469,6 @@
         <!-- MODEL PERFORMANCE -->
 
         <section class="cards">
-
 
             <div class="card">
 
@@ -413,7 +537,6 @@
 
             </div>
 
-
         </section>
 
 
@@ -422,7 +545,7 @@
         <section class="content-grid">
 
 
-            <!-- PREDICTION FORM -->
+            <!-- PREDICTION PANEL -->
 
             <div class="panel">
 
@@ -430,8 +553,87 @@
                     Predict Final Marks
                 </h3>
 
-                <form method="POST">
 
+                <!-- STUDENT SELECTOR -->
+
+                <div class="student-selector">
+
+                    <label for="studentSelect">
+                        Select Student
+                    </label>
+
+                    <select id="studentSelect">
+
+                        <option value="">
+                            -- Select Student ID --
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- STUDENT DETAILS -->
+
+                <div class="student-details">
+
+                    <div class="detail-box">
+
+                        <div class="detail-label">
+                            Student ID
+                        </div>
+
+                        <div class="detail-value" id="studentIdDisplay">
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <div class="detail-label">
+                            Gender
+                        </div>
+
+                        <div class="detail-value" id="genderDisplay">
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <div class="detail-label">
+                            Actual Final Marks
+                        </div>
+
+                        <div class="detail-value" id="actualMarksDisplay">
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <div class="detail-label">
+                            Status
+                        </div>
+
+                        <div class="detail-value" id="statusDisplay">
+                            -
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORM -->
+
+                <form method="POST" id="predictionForm">
 
                     <div class="form-group">
 
@@ -498,7 +700,6 @@
 
                     </button>
 
-
                 </form>
 
 
@@ -515,7 +716,7 @@
                     </div>
 
                     <p>
-                        Estimated using the linear regression model
+                        Estimated using the multiple linear regression model
                     </p>
 
                 </div>
@@ -523,10 +724,54 @@
                 {% endif %}
 
 
+                <!-- STUDENT COMPARISON -->
+
+                <div class="comparison-box">
+
+                    <div class="comparison-item">
+
+                        <h4>
+                            Actual Final Marks
+                        </h4>
+
+                        <strong id="comparisonActual">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="comparison-item">
+
+                        <h4>
+                            Current Prediction
+                        </h4>
+
+                        <strong id="comparisonPrediction">
+                            {% if predicted_mark is not none %}
+                                {{ predicted_mark }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="note">
+
+                    Select a student to automatically load their available
+                    performance information. You can also edit the input values
+                    before running the prediction.
+
+                </div>
+
             </div>
 
 
-            <!-- ACTUAL VS PREDICTED CHART -->
+            <!-- CHART -->
 
             <div class="panel">
 
@@ -541,7 +786,6 @@
                 </div>
 
             </div>
-
 
         </section>
 
@@ -574,13 +818,19 @@
                 <p>
                     <strong>Training Method:</strong>
                     The dataset is divided into training and testing data.
-                    The model learns the relationship between the input features
-                    and final marks using the training data.
+                    The model learns the relationship between the input
+                    features and final marks using the training data.
                 </p>
 
                 <p>
                     <strong>Evaluation:</strong>
                     R², MAE, MSE and RMSE are used to evaluate the prediction model.
+                </p>
+
+                <p>
+                    <strong>Purpose:</strong>
+                    The model provides an estimated final mark based on the
+                    selected input features and the trained dataset.
                 </p>
 
             </div>
@@ -604,22 +854,134 @@
     </footer>
 
 
-    <!-- CHART JAVASCRIPT -->
+    <!-- JAVASCRIPT -->
 
     <script>
+
+        /*
+         * Student data comes from Flask.
+         *
+         * IMPORTANT:
+         * app.py must pass:
+         *
+         * students=df.to_dict(orient="records")
+         *
+         */
+
+        const students = {{ students | tojson }};
 
         const actualValues = {{ actual_values | tojson }};
 
         const predictedValues = {{ predicted_values | tojson }};
 
 
-        const studentNumbers = actualValues.map(
-            (_, index) => "Student " + (index + 1)
-        );
+        /* -----------------------------------------
+           STUDENT SELECT DROPDOWN
+        ----------------------------------------- */
+
+        const studentSelect =
+            document.getElementById("studentSelect");
+
+
+        students.forEach(function(student) {
+
+            const option =
+                document.createElement("option");
+
+            option.value = student.Student_ID;
+
+            option.textContent =
+                student.Student_ID + " - " + student.Gender;
+
+            studentSelect.appendChild(option);
+
+        });
+
+
+        /* -----------------------------------------
+           DISPLAY SELECTED STUDENT
+        ----------------------------------------- */
+
+        studentSelect.addEventListener("change", function() {
+
+            const selectedId = this.value;
+
+            if (!selectedId) {
+
+                document.getElementById("studentIdDisplay").textContent = "-";
+
+                document.getElementById("genderDisplay").textContent = "-";
+
+                document.getElementById("actualMarksDisplay").textContent = "-";
+
+                document.getElementById("statusDisplay").textContent = "-";
+
+                document.getElementById("comparisonActual").textContent = "-";
+
+                return;
+            }
+
+
+            const student =
+                students.find(
+                    s => String(s.Student_ID) === String(selectedId)
+                );
+
+
+            if (!student) {
+                return;
+            }
+
+
+            /* Student information */
+
+            document.getElementById("studentIdDisplay").textContent =
+                student.Student_ID;
+
+            document.getElementById("genderDisplay").textContent =
+                student.Gender;
+
+            document.getElementById("actualMarksDisplay").textContent =
+                Number(student.Final_Marks).toFixed(2);
+
+            document.getElementById("statusDisplay").textContent =
+                student.Status;
+
+
+            /* Automatically fill model inputs */
+
+            document.getElementById("attendance").value =
+                student["Attendance_%"];
+
+            document.getElementById("study_hours").value =
+                student.Study_Hours_Per_Day;
+
+            document.getElementById("internal_average").value =
+                student.Internal_Average;
+
+
+            /* Actual marks comparison */
+
+            document.getElementById("comparisonActual").textContent =
+                Number(student.Final_Marks).toFixed(2);
+
+        });
+
+
+        /* -----------------------------------------
+           CHART
+        ----------------------------------------- */
+
+        const studentNumbers =
+            actualValues.map(
+                (_, index) => "Test Student " + (index + 1)
+            );
 
 
         new Chart(
+
             document.getElementById("predictionChart"),
+
             {
 
                 type: "line",
@@ -631,43 +993,75 @@
                     datasets: [
 
                         {
+
                             label: "Actual Final Marks",
 
                             data: actualValues,
 
                             borderColor: "#173b57",
 
-                            backgroundColor: "rgba(23, 59, 87, 0.1)",
+                            backgroundColor:
+                                "rgba(23, 59, 87, 0.1)",
 
                             tension: 0.3,
 
                             fill: false
+
                         },
 
 
                         {
+
                             label: "Predicted Final Marks",
 
                             data: predictedValues,
 
                             borderColor: "#2878a8",
 
-                            backgroundColor: "rgba(40, 120, 168, 0.1)",
+                            backgroundColor:
+                                "rgba(40, 120, 168, 0.1)",
 
                             tension: 0.3,
 
                             fill: false
+
                         }
 
                     ]
 
                 },
 
+
                 options: {
 
                     responsive: true,
 
                     maintainAspectRatio: false,
+
+                    interaction: {
+
+                        mode: "index",
+
+                        intersect: false
+
+                    },
+
+                    plugins: {
+
+                        tooltip: {
+
+                            enabled: true
+
+                        },
+
+                        legend: {
+
+                            display: true
+
+                        }
+
+                    },
+
 
                     scales: {
 
@@ -680,9 +1074,11 @@
                                 display: true,
 
                                 text: "Final Marks"
+
                             }
 
                         },
+
 
                         x: {
 
@@ -691,6 +1087,7 @@
                                 display: true,
 
                                 text: "Test Students"
+
                             }
 
                         }
@@ -702,6 +1099,18 @@
             }
 
         );
+
+
+        /* -----------------------------------------
+           AFTER SERVER-SIDE PREDICTION
+        ----------------------------------------- */
+
+        {% if predicted_mark is not none %}
+
+        document.getElementById("comparisonPrediction").textContent =
+            "{{ predicted_mark }}";
+
+        {% endif %}
 
     </script>
 

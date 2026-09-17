@@ -50,7 +50,7 @@
             display: flex;
             gap: 8px;
             border-bottom: 1px solid #e5e7eb;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
         }
 
         .nav-item {
@@ -59,6 +59,10 @@
             color: #4b5563;
             font-size: 14px;
             font-weight: 600;
+        }
+
+        .nav-item:hover {
+            color: #173b57;
         }
 
         .nav-item.active {
@@ -88,11 +92,72 @@
             font-size: 14px;
         }
 
-        /* CARDS */
+        /* FILTER PANEL */
+
+        .filter-panel {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            margin-bottom: 25px;
+        }
+
+        .filter-panel h3 {
+            color: #173b57;
+            margin-bottom: 18px;
+            font-size: 17px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 7px;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #2878a8;
+        }
+
+        .clear-btn {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #173b57;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .clear-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* KPI CARDS */
 
         .cards {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 18px;
             margin-bottom: 25px;
         }
@@ -101,7 +166,7 @@
             background: white;
             padding: 22px;
             border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
             border: 1px solid #e5e7eb;
         }
 
@@ -112,7 +177,7 @@
         }
 
         .card-value {
-            font-size: 28px;
+            font-size: 27px;
             font-weight: bold;
             color: #173b57;
         }
@@ -123,19 +188,20 @@
             margin-top: 6px;
         }
 
-        /* CONTENT */
+        /* CONTENT GRID */
 
         .content-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+            margin-bottom: 20px;
         }
 
         .panel {
             background: white;
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
             border: 1px solid #e5e7eb;
         }
 
@@ -145,7 +211,7 @@
             color: #173b57;
         }
 
-        /* SUBJECT */
+        /* SUBJECT PERFORMANCE */
 
         .subject {
             margin-bottom: 22px;
@@ -170,30 +236,111 @@
             height: 100%;
             background: #2878a8;
             border-radius: 10px;
+            transition: width 0.4s ease;
         }
 
         /* CHART */
 
         .chart-container {
             height: 330px;
+            position: relative;
         }
 
-        /* INFO */
+        /* TABLE */
 
-        .info-box {
+        .table-panel {
+            margin-top: 20px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th {
+            background: #173b57;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 13px;
+        }
+
+        .student-row {
+            cursor: pointer;
+        }
+
+        .student-row:hover {
             background: #f0f6fa;
-            padding: 18px;
-            border-radius: 10px;
         }
 
-        .info-box p {
-            margin-bottom: 12px;
-            font-size: 14px;
-            line-height: 1.5;
+        .student-row.selected {
+            background: #dcecf5;
         }
 
-        .info-box strong {
+        /* STATUS */
+
+        .status-pass {
+            color: #16803c;
+            font-weight: bold;
+        }
+
+        .status-fail {
+            color: #c62828;
+            font-weight: bold;
+        }
+
+        /* STUDENT DETAILS */
+
+        .student-details {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .student-details.show {
+            display: block;
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .detail-box {
+            background: #f0f6fa;
+            padding: 15px;
+            border-radius: 9px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            font-weight: bold;
             color: #173b57;
+        }
+
+        /* EMPTY MESSAGE */
+
+        .empty-message {
+            text-align: center;
+            padding: 25px;
+            color: #6b7280;
         }
 
         /* FOOTER */
@@ -206,48 +353,59 @@
         }
 
         /* RESPONSIVE */
-/* RESPONSIVE */
 
-@media (max-width: 900px) {
+        @media (max-width: 1000px) {
 
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-    .content-grid {
-        grid-template-columns: 1fr;
-    }
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
 
-}
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
 
-@media (max-width: 600px) {
+            .student-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-    .cards {
-        grid-template-columns: 1fr;
-    }
+        }
 
-    .navbar {
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+        @media (max-width: 600px) {
 
-    .container {
-        padding: 18px;
-    }
+            .cards {
+                grid-template-columns: 1fr;
+            }
 
-    .header {
-        padding: 20px;
-    }
+            .filters {
+                grid-template-columns: 1fr;
+            }
 
-    .header h1 {
-        font-size: 22px;
-    }
+            .student-grid {
+                grid-template-columns: 1fr;
+            }
 
-    .chart-container {
-        height: 280px;
-    }
+            .navbar {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
 
-}
+            .container {
+                padding: 18px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+        }
 
     </style>
 
@@ -257,24 +415,24 @@
 <body>
 
 
-    <!-- HEADER -->
+<!-- HEADER -->
 
-    <header class="header">
+<header class="header">
 
-        <h1>
-            Pharmacy Student Performance & Analytics Dashboard
-        </h1>
+    <h1>
+        Pharmacy Student Performance & Analytics Dashboard
+    </h1>
 
-        <p>
-            Academic performance analysis, statistics and predictive analytics
-        </p>
+    <p>
+        Interactive academic performance analysis and student-level analytics
+    </p>
 
-    </header>
+</header>
 
 
-    <!-- NAVIGATION -->
+<!-- NAVIGATION -->
 
-    <nav class="navbar">
+<nav class="navbar">
 
     <a href="/" class="nav-item">
         Overview
@@ -303,339 +461,982 @@
 </nav>
 
 
-    <!-- MAIN -->
+<!-- MAIN -->
 
-    <main class="container">
+<main class="container">
 
 
-        <!-- PAGE TITLE -->
+    <!-- TITLE -->
 
-        <div class="page-title">
+    <div class="page-title">
 
-            <h2>
-                Academic Analysis
-            </h2>
+        <h2>
+            Academic Analysis
+        </h2>
 
-            <p>
-                Detailed analysis of pharmacy subject performance
-            </p>
+        <p>
+            Explore subject-wise and student-level academic performance
+        </p>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <section class="filter-panel">
+
+        <h3>
+            🔎 Filter Academic Data
+        </h3>
+
+        <div class="filters">
+
+
+            <!-- STUDENT SEARCH -->
+
+            <div class="filter-group">
+
+                <label>
+                    Search Student ID
+                </label>
+
+                <input
+                    type="text"
+                    id="studentSearch"
+                    placeholder="Example: P037"
+                >
+
+            </div>
+
+
+            <!-- GENDER -->
+
+            <div class="filter-group">
+
+                <label>
+                    Gender
+                </label>
+
+                <select id="genderFilter">
+
+                    <option value="All">
+                        All
+                    </option>
+
+                    <option value="Male">
+                        Male
+                    </option>
+
+                    <option value="Female">
+                        Female
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="filter-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select id="statusFilter">
+
+                    <option value="All">
+                        All
+                    </option>
+
+                    <option value="Pass">
+                        Pass
+                    </option>
+
+                    <option value="Fail">
+                        Fail
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- CLEAR -->
+
+            <button
+                class="clear-btn"
+                onclick="clearFilters()"
+            >
+                Clear Filters
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- KPI CARDS -->
+
+    <section class="cards">
+
+
+        <div class="card">
+
+            <div class="card-title">
+                Students
+            </div>
+
+            <div
+                class="card-value"
+                id="totalStudents"
+            >
+                0
+            </div>
+
+            <div class="card-subtitle">
+                Filtered students
+            </div>
 
         </div>
 
 
-        <!-- SUMMARY CARDS -->
+        <div class="card">
 
-        <section class="cards">
+            <div class="card-title">
+                Overall Subject Average
+            </div>
+
+            <div
+                class="card-value"
+                id="overallAverage"
+            >
+                0
+            </div>
+
+            <div class="card-subtitle">
+                Average across subjects
+            </div>
+
+        </div>
 
 
-            <div class="card">
+        <div class="card">
 
-                <div class="card-title">
-                    Overall Subject Average
+            <div class="card-title">
+                Highest Final Marks
+            </div>
+
+            <div
+                class="card-value"
+                id="highestMarks"
+            >
+                0
+            </div>
+
+            <div class="card-subtitle">
+                Highest filtered score
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                Lowest Final Marks
+            </div>
+
+            <div
+                class="card-value"
+                id="lowestMarks"
+            >
+                0
+            </div>
+
+            <div class="card-subtitle">
+                Lowest filtered score
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- SUBJECT PERFORMANCE + CHART -->
+
+    <section class="content-grid">
+
+
+        <!-- SUBJECT PERFORMANCE -->
+
+        <div class="panel">
+
+            <h3>
+                Subject-wise Performance
+            </h3>
+
+
+            <!-- PHARMACOLOGY -->
+
+            <div class="subject">
+
+                <div class="subject-header">
+
+                    <span>
+                        Pharmacology
+                    </span>
+
+                    <strong id="pharmacologyAverage">
+                        0
+                    </strong>
+
                 </div>
 
-                <div class="card-value">
-                    {{ overall_subject_average }}
-                </div>
+                <div class="progress">
 
-                <div class="card-subtitle">
-                    Average across all subjects
+                    <div
+                        class="progress-bar"
+                        id="pharmacologyBar"
+                        style="width:0%"
+                    >
+                    </div>
+
                 </div>
 
             </div>
 
 
-            <div class="card">
+            <!-- PHARMACEUTICS -->
 
-                <div class="card-title">
-                    Highest Final Marks
+            <div class="subject">
+
+                <div class="subject-header">
+
+                    <span>
+                        Pharmaceutics
+                    </span>
+
+                    <strong id="pharmaceuticsAverage">
+                        0
+                    </strong>
+
                 </div>
 
-                <div class="card-value">
-                    {{ highest_marks }}
-                </div>
+                <div class="progress">
 
-                <div class="card-subtitle">
-                    Highest student final score
-                </div>
+                    <div
+                        class="progress-bar"
+                        id="pharmaceuticsBar"
+                        style="width:0%"
+                    >
+                    </div>
 
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-title">
-                    Lowest Final Marks
-                </div>
-
-                <div class="card-value">
-                    {{ lowest_marks }}
-                </div>
-
-                <div class="card-subtitle">
-                    Lowest student final score
                 </div>
 
             </div>
 
 
-        </section>
+            <!-- PHARMACOGNOSY -->
+
+            <div class="subject">
+
+                <div class="subject-header">
+
+                    <span>
+                        Pharmacognosy
+                    </span>
+
+                    <strong id="pharmacognosyAverage">
+                        0
+                    </strong>
+
+                </div>
+
+                <div class="progress">
+
+                    <div
+                        class="progress-bar"
+                        id="pharmacognosyBar"
+                        style="width:0%"
+                    >
+                    </div>
+
+                </div>
+
+            </div>
 
 
-        <!-- CONTENT -->
-
-        <section class="content-grid">
+        </div>
 
 
-            <!-- SUBJECT PERFORMANCE -->
+        <!-- CHART -->
 
-            <div class="panel">
+        <div class="panel">
 
-                <h3>
-                    Subject-wise Performance
-                </h3>
+            <h3>
+                Interactive Subject Comparison
+            </h3>
+
+            <div class="chart-container">
+
+                <canvas id="academicChart"></canvas>
+
+            </div>
+
+        </div>
 
 
-                <!-- PHARMACOLOGY -->
+    </section>
 
-                <div class="subject">
 
-                    <div class="subject-header">
+    <!-- STUDENT TABLE -->
 
-                        <span>
+    <section class="panel table-panel">
+
+        <h3>
+            Student Academic Records
+        </h3>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Student ID
+                        </th>
+
+                        <th>
+                            Gender
+                        </th>
+
+                        <th>
                             Pharmacology
-                        </span>
+                        </th>
 
-                        <strong>
-                            {{ pharmacology_average }}
-                        </strong>
-
-                    </div>
-
-                    <div class="progress">
-
-                        <div
-                            class="progress-bar"
-                            style="width: {{ pharmacology_average }}%;">
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PHARMACEUTICS -->
-
-                <div class="subject">
-
-                    <div class="subject-header">
-
-                        <span>
+                        <th>
                             Pharmaceutics
-                        </span>
+                        </th>
 
-                        <strong>
-                            {{ pharmaceutics_average }}
-                        </strong>
-
-                    </div>
-
-                    <div class="progress">
-
-                        <div
-                            class="progress-bar"
-                            style="width: {{ pharmaceutics_average }}%;">
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PHARMACOGNOSY -->
-
-                <div class="subject">
-
-                    <div class="subject-header">
-
-                        <span>
+                        <th>
                             Pharmacognosy
-                        </span>
+                        </th>
 
-                        <strong>
-                            {{ pharmacognosy_average }}
-                        </strong>
+                        <th>
+                            Subject Average
+                        </th>
 
-                    </div>
+                        <th>
+                            Final Marks
+                        </th>
 
-                    <div class="progress">
+                        <th>
+                            Status
+                        </th>
 
-                        <div
-                            class="progress-bar"
-                            style="width: {{ pharmacognosy_average }}%;">
-                        </div>
+                    </tr>
 
-                    </div>
+                </thead>
 
+                <tbody id="studentTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- SELECTED STUDENT DETAILS -->
+
+    <section
+        class="panel student-details"
+        id="studentDetails"
+    >
+
+        <h3>
+            Selected Student Academic Analysis
+        </h3>
+
+
+        <div class="student-grid">
+
+
+            <div class="detail-box">
+
+                <div class="detail-label">
+                    Student ID
                 </div>
 
-
-            </div>
-
-
-            <!-- CHART -->
-
-            <div class="panel">
-
-                <h3>
-                    Subject Comparison
-                </h3>
-
-                <div class="chart-container">
-
-                    <canvas id="academicChart"></canvas>
-
-                </div>
-
-            </div>
-
-
-        </section>
-
-
-        <!-- ANALYSIS SUMMARY -->
-
-        <section style="margin-top: 20px;">
-
-            <div class="panel">
-
-                <h3>
-                    Academic Analysis Summary
-                </h3>
-
-                <div class="info-box">
-
-                    <p>
-                        <strong>Pharmacology Average:</strong>
-                        {{ pharmacology_average }}
-                    </p>
-
-                    <p>
-                        <strong>Pharmaceutics Average:</strong>
-                        {{ pharmaceutics_average }}
-                    </p>
-
-                    <p>
-                        <strong>Pharmacognosy Average:</strong>
-                        {{ pharmacognosy_average }}
-                    </p>
-
-                    <p>
-                        <strong>Overall Subject Average:</strong>
-                        {{ overall_subject_average }}
-                    </p>
-
-                    <p>
-                        This page provides a subject-wise view of student academic
-                        performance using the pharmacy student Excel dataset.
-                    </p>
-
+                <div
+                    class="detail-value"
+                    id="detailStudentId"
+                >
+                    -
                 </div>
 
             </div>
 
-        </section>
+
+            <div class="detail-box">
+
+                <div class="detail-label">
+                    Gender
+                </div>
+
+                <div
+                    class="detail-value"
+                    id="detailGender"
+                >
+                    -
+                </div>
+
+            </div>
 
 
-    </main>
+            <div class="detail-box">
+
+                <div class="detail-label">
+                    Pharmacology
+                </div>
+
+                <div
+                    class="detail-value"
+                    id="detailPharmacology"
+                >
+                    -
+                </div>
+
+            </div>
 
 
-    <!-- FOOTER -->
+            <div class="detail-box">
 
-    <footer class="footer">
+                <div class="detail-label">
+                    Pharmaceutics
+                </div>
 
-        Pharmacy Student Performance & Analytics Dashboard
+                <div
+                    class="detail-value"
+                    id="detailPharmaceutics"
+                >
+                    -
+                </div>
 
-        <br>
-
-        Python • Flask • Pandas • Machine Learning
-
-    </footer>
+            </div>
 
 
-    <!-- CHART -->
+            <div class="detail-box">
 
-    <script>
+                <div class="detail-label">
+                    Pharmacognosy
+                </div>
 
-        const subjectLabels = [
-            "Pharmacology",
-            "Pharmaceutics",
+                <div
+                    class="detail-value"
+                    id="detailPharmacognosy"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <div class="detail-label">
+                    Subject Average
+                </div>
+
+                <div
+                    class="detail-value"
+                    id="detailSubjectAverage"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <div class="detail-label">
+                    Internal Average
+                </div>
+
+                <div
+                    class="detail-value"
+                    id="detailInternal"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <div class="detail-label">
+                    Final Marks
+                </div>
+
+                <div
+                    class="detail-value"
+                    id="detailFinalMarks"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- STUDENT CHART -->
+
+        <div
+            style="
+                height:300px;
+                margin-top:25px;
+            "
+        >
+
+            <canvas id="studentChart"></canvas>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    Pharmacy Student Performance & Analytics Dashboard
+
+    <br>
+
+    Python • Flask • Pandas • Machine Learning
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+
+/* ---------------------------------------------------
+   STUDENT DATA FROM FLASK
+--------------------------------------------------- */
+
+const students = {{ students | tojson }};
+
+
+/* ---------------------------------------------------
+   CHART VARIABLES
+--------------------------------------------------- */
+
+let academicChart = null;
+
+let studentChart = null;
+
+let selectedStudentId = null;
+
+
+/* ---------------------------------------------------
+   FILTER STUDENTS
+--------------------------------------------------- */
+
+function getFilteredStudents() {
+
+    const search =
+        document
+        .getElementById("studentSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const gender =
+        document
+        .getElementById("genderFilter")
+        .value;
+
+
+    const status =
+        document
+        .getElementById("statusFilter")
+        .value;
+
+
+    return students.filter(student => {
+
+
+        const studentId =
+            String(student.Student_ID)
+            .toLowerCase();
+
+
+        const matchesSearch =
+            studentId.includes(search);
+
+
+        const matchesGender =
+            gender === "All" ||
+            String(student.Gender) === gender;
+
+
+        const matchesStatus =
+            status === "All" ||
+            String(student.Status).toLowerCase() ===
+            status.toLowerCase();
+
+
+        return (
+            matchesSearch &&
+            matchesGender &&
+            matchesStatus
+        );
+
+    });
+
+}
+
+
+/* ---------------------------------------------------
+   CALCULATE AVERAGE
+--------------------------------------------------- */
+
+function calculateAverage(data, field) {
+
+    if (data.length === 0) {
+
+        return 0;
+
+    }
+
+
+    const total =
+        data.reduce(
+
+            (sum, student) => {
+
+                return sum +
+                    Number(student[field]);
+
+            },
+
+            0
+
+        );
+
+
+    return total / data.length;
+
+}
+
+
+/* ---------------------------------------------------
+   UPDATE KPIs
+--------------------------------------------------- */
+
+function updateKPIs(data) {
+
+
+    document.getElementById(
+        "totalStudents"
+    ).textContent = data.length;
+
+
+    if (data.length === 0) {
+
+        document.getElementById(
+            "overallAverage"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "highestMarks"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "lowestMarks"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "pharmacologyAverage"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "pharmaceuticsAverage"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "pharmacognosyAverage"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "pharmacologyBar"
+        ).style.width = "0%";
+
+
+        document.getElementById(
+            "pharmaceuticsBar"
+        ).style.width = "0%";
+
+
+        document.getElementById(
+            "pharmacognosyBar"
+        ).style.width = "0%";
+
+
+        updateAcademicChart(
+            0,
+            0,
+            0
+        );
+
+
+        return;
+
+    }
+
+
+    const pharmacology =
+        calculateAverage(
+            data,
+            "Pharmacology"
+        );
+
+
+    const pharmaceutics =
+        calculateAverage(
+            data,
+            "Pharmaceutics"
+        );
+
+
+    const pharmacognosy =
+        calculateAverage(
+            data,
             "Pharmacognosy"
-        ];
-
-        const subjectValues = [
-            {{ pharmacology_average }},
-            {{ pharmaceutics_average }},
-            {{ pharmacognosy_average }}
-        ];
+        );
 
 
-        new Chart(
-            document.getElementById("academicChart"),
-            {
+    const overallAverage =
 
-                type: "bar",
+        (
+            pharmacology +
+            pharmaceutics +
+            pharmacognosy
+        ) / 3;
 
-                data: {
 
-                    labels: subjectLabels,
+    const finalMarks =
+        data.map(
 
-                    datasets: [
+            student =>
+                Number(student.Final_Marks)
 
-                        {
-                            label: "Average Marks",
+        );
 
-                            data: subjectValues,
 
-                            backgroundColor: "#2878a8",
+    document.getElementById(
+        "overallAverage"
+    ).textContent =
+        overallAverage.toFixed(2);
 
-                            borderRadius: 8
-                        }
 
-                    ]
+    document.getElementById(
+        "highestMarks"
+    ).textContent =
+        Math.max(...finalMarks)
+        .toFixed(2);
 
-                },
 
-                options: {
+    document.getElementById(
+        "lowestMarks"
+    ).textContent =
+        Math.min(...finalMarks)
+        .toFixed(2);
 
-                    responsive: true,
 
-                    maintainAspectRatio: false,
+    /* SUBJECT AVERAGES */
 
-                    scales: {
 
-                        y: {
+    document.getElementById(
+        "pharmacologyAverage"
+    ).textContent =
+        pharmacology.toFixed(2);
 
-                            beginAtZero: true,
 
-                            max: 100,
+    document.getElementById(
+        "pharmaceuticsAverage"
+    ).textContent =
+        pharmaceutics.toFixed(2);
 
-                            title: {
 
-                                display: true,
+    document.getElementById(
+        "pharmacognosyAverage"
+    ).textContent =
+        pharmacognosy.toFixed(2);
 
-                                text: "Average Marks"
-                            }
 
-                        }
+    /* PROGRESS BARS */
 
-                    },
 
-                    plugins: {
+    document.getElementById(
+        "pharmacologyBar"
+    ).style.width =
+        pharmacology + "%";
 
-                        legend: {
 
-                            display: true
+    document.getElementById(
+        "pharmaceuticsBar"
+    ).style.width =
+        pharmaceutics + "%";
+
+
+    document.getElementById(
+        "pharmacognosyBar"
+    ).style.width =
+        pharmacognosy + "%";
+
+
+    /* CHART */
+
+
+    updateAcademicChart(
+        pharmacology,
+        pharmaceutics,
+        pharmacognosy
+    );
+
+}
+
+
+/* ---------------------------------------------------
+   ACADEMIC CHART
+--------------------------------------------------- */
+
+function updateAcademicChart(
+    pharmacology,
+    pharmaceutics,
+    pharmacognosy
+) {
+
+
+    const values = [
+
+        pharmacology,
+
+        pharmaceutics,
+
+        pharmacognosy
+
+    ];
+
+
+    if (academicChart) {
+
+
+        academicChart.data.datasets[0].data =
+            values;
+
+
+        academicChart.update();
+
+
+        return;
+
+    }
+
+
+    academicChart = new Chart(
+
+        document.getElementById(
+            "academicChart"
+        ),
+
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels: [
+
+                    "Pharmacology",
+
+                    "Pharmaceutics",
+
+                    "Pharmacognosy"
+
+                ],
+
+                datasets: [
+
+                    {
+
+                        label:
+                            "Average Marks",
+
+                        data:
+                            values,
+
+                        backgroundColor:
+                            "#2878a8",
+
+                        borderRadius:
+                            8
+
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        max: 100,
+
+                        title: {
+
+                            display: true,
+
+                            text:
+                                "Average Marks"
+
                         }
 
                     }
@@ -643,9 +1444,545 @@
                 }
 
             }
+
+        }
+
+    );
+
+}
+
+
+/* ---------------------------------------------------
+   STUDENT TABLE
+--------------------------------------------------- */
+
+function renderTable(data) {
+
+
+    const tbody =
+        document.getElementById(
+            "studentTableBody"
         );
 
-    </script>
+
+    tbody.innerHTML = "";
+
+
+    if (data.length === 0) {
+
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="empty-message"
+                >
+
+                    No students found
+
+                </td>
+
+            </tr>
+
+        `;
+
+
+        return;
+
+    }
+
+
+    data.forEach(student => {
+
+
+        const subjectAverage = (
+
+            Number(student.Pharmacology) +
+
+            Number(student.Pharmaceutics) +
+
+            Number(student.Pharmacognosy)
+
+        ) / 3;
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.className =
+            "student-row";
+
+
+        if (
+
+            String(student.Student_ID) ===
+
+            String(selectedStudentId)
+
+        ) {
+
+            row.classList.add(
+                "selected"
+            );
+
+        }
+
+
+        const statusClass =
+
+            String(student.Status)
+            .toLowerCase() === "pass"
+
+            ? "status-pass"
+
+            : "status-fail";
+
+
+        row.innerHTML = `
+
+            <td>
+
+                <strong>
+
+                    ${student.Student_ID}
+
+                </strong>
+
+            </td>
+
+
+            <td>
+
+                ${student.Gender}
+
+            </td>
+
+
+            <td>
+
+                ${student.Pharmacology}
+
+            </td>
+
+
+            <td>
+
+                ${student.Pharmaceutics}
+
+            </td>
+
+
+            <td>
+
+                ${student.Pharmacognosy}
+
+            </td>
+
+
+            <td>
+
+                ${subjectAverage.toFixed(2)}
+
+            </td>
+
+
+            <td>
+
+                ${student.Final_Marks}
+
+            </td>
+
+
+            <td>
+
+                <span class="${statusClass}">
+
+                    ${student.Status}
+
+                </span>
+
+            </td>
+
+        `;
+
+
+        row.addEventListener(
+
+            "click",
+
+            function () {
+
+                selectStudent(
+                    student.Student_ID
+                );
+
+            }
+
+        );
+
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+/* ---------------------------------------------------
+   SELECT STUDENT
+--------------------------------------------------- */
+
+function selectStudent(studentId) {
+
+
+    selectedStudentId =
+        studentId;
+
+
+    const student =
+        students.find(
+
+            item =>
+
+                String(item.Student_ID) ===
+
+                String(studentId)
+
+        );
+
+
+    if (!student) {
+
+        return;
+
+    }
+
+
+    const subjectAverage = (
+
+        Number(student.Pharmacology) +
+
+        Number(student.Pharmaceutics) +
+
+        Number(student.Pharmacognosy)
+
+    ) / 3;
+
+
+    /* DETAILS */
+
+
+    document.getElementById(
+        "detailStudentId"
+    ).textContent =
+        student.Student_ID;
+
+
+    document.getElementById(
+        "detailGender"
+    ).textContent =
+        student.Gender;
+
+
+    document.getElementById(
+        "detailPharmacology"
+    ).textContent =
+        student.Pharmacology;
+
+
+    document.getElementById(
+        "detailPharmaceutics"
+    ).textContent =
+        student.Pharmaceutics;
+
+
+    document.getElementById(
+        "detailPharmacognosy"
+    ).textContent =
+        student.Pharmacognosy;
+
+
+    document.getElementById(
+        "detailSubjectAverage"
+    ).textContent =
+        subjectAverage.toFixed(2);
+
+
+    document.getElementById(
+        "detailInternal"
+    ).textContent =
+        student.Internal_Average;
+
+
+    document.getElementById(
+        "detailFinalMarks"
+    ).textContent =
+        student.Final_Marks;
+
+
+    /* SHOW DETAILS */
+
+
+    document.getElementById(
+        "studentDetails"
+    ).classList.add(
+        "show"
+    );
+
+
+    /* STUDENT CHART */
+
+
+    updateStudentChart(
+        student
+    );
+
+
+    /* REFRESH TABLE */
+
+
+    renderTable(
+        getFilteredStudents()
+    );
+
+}
+
+
+/* ---------------------------------------------------
+   STUDENT PERFORMANCE CHART
+--------------------------------------------------- */
+
+function updateStudentChart(student) {
+
+
+    const values = [
+
+        Number(student.Pharmacology),
+
+        Number(student.Pharmaceutics),
+
+        Number(student.Pharmacognosy),
+
+        Number(student.Internal_Average),
+
+        Number(student.Final_Marks)
+
+    ];
+
+
+    if (studentChart) {
+
+
+        studentChart.data.datasets[0].data =
+            values;
+
+
+        studentChart.data.datasets[0].label =
+            student.Student_ID;
+
+
+        studentChart.update();
+
+
+        return;
+
+    }
+
+
+    studentChart = new Chart(
+
+        document.getElementById(
+            "studentChart"
+        ),
+
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels: [
+
+                    "Pharmacology",
+
+                    "Pharmaceutics",
+
+                    "Pharmacognosy",
+
+                    "Internal Average",
+
+                    "Final Marks"
+
+                ],
+
+                datasets: [
+
+                    {
+
+                        label:
+                            student.Student_ID,
+
+                        data:
+                            values,
+
+                        backgroundColor:
+                            "#173b57",
+
+                        borderRadius:
+                            8
+
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        max: 100
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    );
+
+}
+
+
+/* ---------------------------------------------------
+   APPLY FILTERS
+--------------------------------------------------- */
+
+function applyFilters() {
+
+
+    const filteredData =
+        getFilteredStudents();
+
+
+    updateKPIs(
+        filteredData
+    );
+
+
+    renderTable(
+        filteredData
+    );
+
+
+    /*
+        If exactly one student
+        is found, automatically
+        select that student.
+    */
+
+    if (
+        filteredData.length === 1
+    ) {
+
+
+        selectStudent(
+
+            filteredData[0].Student_ID
+
+        );
+
+    }
+
+}
+
+
+/* ---------------------------------------------------
+   CLEAR FILTERS
+--------------------------------------------------- */
+
+function clearFilters() {
+
+
+    document.getElementById(
+        "studentSearch"
+    ).value = "";
+
+
+    document.getElementById(
+        "genderFilter"
+    ).value = "All";
+
+
+    document.getElementById(
+        "statusFilter"
+    ).value = "All";
+
+
+    selectedStudentId =
+        null;
+
+
+    document.getElementById(
+        "studentDetails"
+    ).classList.remove(
+        "show"
+    );
+
+
+    applyFilters();
+
+}
+
+
+/* ---------------------------------------------------
+   EVENT LISTENERS
+--------------------------------------------------- */
+
+document.getElementById(
+    "studentSearch"
+).addEventListener(
+    "input",
+    applyFilters
+);
+
+
+document.getElementById(
+    "genderFilter"
+).addEventListener(
+    "change",
+    applyFilters
+);
+
+
+document.getElementById(
+    "statusFilter"
+).addEventListener(
+    "change",
+    applyFilters
+);
+
+
+/* ---------------------------------------------------
+   INITIAL LOAD
+--------------------------------------------------- */
+
+applyFilters();
+
+</script>
 
 
 </body>
